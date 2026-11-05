@@ -1,0 +1,212 @@
+
+/* ================================
+   MODAL CONNEXION
+================================ */
+
+.login-modal-content {
+    position: relative;
+    border: none;
+    border-radius: 20px;
+    padding: 10px;
+    background: #ffffff;
+}
+
+.login-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 10;
+}
+
+/* Formulaire */
+
+.login-form {
+    width: 100%;
+    padding: 25px;
+}
+
+.login-field {
+    margin-bottom: 20px;
+}
+
+.login-field label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #B84E23;
+}
+
+.login-input-group {
+    width: 100%;
+    height: 50px;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 0 14px;
+
+    border: 1px solid #dcdcdc;
+    border-radius: 10px;
+
+    background: #fff;
+
+    transition: 0.2s ease;
+}
+
+.login-input-group:focus-within {
+    border-color: #96401D;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+}
+
+.login-input-group svg {
+    flex-shrink: 0;
+    fill: #B84E23;
+}
+
+.login-input-group input {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 15px;
+}
+
+.login-input-group input::placeholder {
+    color: #B84E23;
+}
+
+/* Options */
+
+.login-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin: 5px 0 20px;
+
+    font-size: 14px;
+}
+
+.login-options div {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.login-options a,
+.login-register a {
+    color: #B84E23;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.login-options a:hover,
+.login-register a:hover {
+    text-decoration: underline;
+}
+
+/* Bouton principal */
+
+.login-submit {
+    width: 100%;
+    height: 48px;
+
+    border: none;
+    border-radius: 10px;
+
+    background: #B84E23;
+    color: white;
+
+    font-weight: 600;
+    font-size: 15px;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.login-submit:hover {
+    background: #96401D;
+}
+
+/* Inscription */
+
+.login-register {
+    margin: 18px 0;
+    text-align: center;
+
+    font-size: 14px;
+    color: #555;
+}
+
+/* Séparateur */
+
+.login-separator {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    color: #B84E23;
+    font-size: 13px;
+
+    margin: 20px 0;
+}
+
+.login-separator::before,
+.login-separator::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #B84E23;
+}
+
+/* Boutons sociaux */
+
+.login-social {
+    display: flex;
+    gap: 12px;
+}
+
+.social-btn {
+    flex: 1;
+
+    height: 45px;
+
+    border: 1px solid #B84E23;
+    border-radius: 9px;
+
+    background: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    font-weight: 500;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.social-btn:hover {
+    background: #96401D;
+}
+
+/* Mobile */
+
+@media (max-width: 576px) {
+
+    .modal-dialog {
+        margin: 12px;
+    }
+
+    .login-form {
+        padding: 20px 15px;
+    }
+
+    .login-social {
+        flex-direction: column;
+    }
+}

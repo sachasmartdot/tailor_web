@@ -1,0 +1,16 @@
+# secrets : ne jamais envoyer
+cle-firebase.json
+lancer_local.sh
+deploy.env
+.env
+
+# dependances : recreees par composer install
+vendor/
+
+# donnees creees a l'execution
+public/assets/users/
+storage/payments/*.log
+
+# fichiers d'editeur et de systeme
+*.swp
+.DS_Store

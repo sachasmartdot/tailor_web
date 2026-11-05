@@ -1,0 +1,185 @@
+.article-detail-page {
+    background: #f8f5f0;
+    min-height: 100vh;
+}
+
+.article-detail-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 50px 20px;
+}
+
+.article-detail-card {
+    background: #fff;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.06);
+}
+
+.article-detail-image {
+    width: 100%;
+    height: 560px;
+    object-fit: cover;
+    display: block;
+}
+
+.article-detail-content {
+    padding: 45px;
+}
+
+.article-detail-label {
+    color: #b65f45;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+
+.article-detail-title {
+    font-family: Georgia, serif;
+    font-size: 42px;
+    color: #292522;
+    margin-bottom: 15px;
+}
+
+.article-detail-description {
+    color: #777;
+    line-height: 1.7;
+    margin-bottom: 25px;
+}
+
+.article-detail-price {
+    font-size: 28px;
+    font-weight: 700;
+    color: #b65f45;
+    margin-bottom: 35px;
+}
+
+/* Personnalisation */
+
+.customization-section {
+    margin-top: 30px;
+}
+
+.customization-title {
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #292522;
+    margin-bottom: 14px;
+}
+
+.color-options {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+
+.color-option {
+    position: relative;
+}
+
+.color-option input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.color-swatch {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 2px solid #ddd;
+    display: block;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.color-option input:checked + .color-swatch {
+    outline: 3px solid #b65f45;
+    outline-offset: 3px;
+}
+
+/* Tailles */
+
+.size-options {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 35px;
+}
+
+.size-option {
+    position: relative;
+}
+
+.size-option input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.size-button {
+    min-width: 55px;
+    padding: 11px 17px;
+    border: 1px solid #d9d0c5;
+    background: #fff;
+    color: #292522;
+    border-radius: 4px;
+    text-align: center;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.2s ease;
+}
+
+.size-option input:checked + .size-button {
+    background: #b65f45;
+    border-color: #b65f45;
+    color: #fff;
+}
+
+.add-to-cart-button {
+    width: 100%;
+    border: none;
+    background: #b65f45;
+    color: #fff;
+    padding: 16px 24px;
+    font-size: 15px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.add-to-cart-button:hover {
+    background: #944b36;
+}
+
+.customization-note {
+    margin-top: 15px;
+    color: #888;
+    font-size: 13px;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .article-detail-wrapper {
+        padding: 25px 15px;
+    }
+
+    .article-detail-image {
+        height: 400px;
+    }
+
+    .article-detail-content {
+        padding: 30px 22px;
+    }
+
+    .article-detail-title {
+        font-size: 32px;
+    }
+}

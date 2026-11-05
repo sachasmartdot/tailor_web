@@ -1,0 +1,9 @@
+## 4/11/2026
+en cas de : Fatal: Erreur d'initialisation Firebase :: Unable to create a FirestoreClient: Could not construct ApplicationDefaultCredentials
+
+CAUSE: L'erreur provient du fait que Google Cloud (utilisé en sous-main par Firestore) a besoin de la variable d'environnement GOOGLE_APPLICATION_CREDENTIALS pour construire ses composants internes (comme le FirestoreClient), même si vous donnez déjà la clé $clePath à la fonction withServiceAccount() de Kreait Firebase. Sans cette variable, l'initialisation de Firestore échoue de manière critique. 
+
+SOLUTION: // SOLUTION : On informe explicitement les composants Google Cloud sous-jacents
+	// de l'emplacement de la clé de service avant d'attaquer le bloc try.
+	$clePathEnvironment = __DIR__ . '/../cle-firebase.json';
+	putenv("GOOGLE_APPLICATION_CREDENTIALS=" . $clePathEnvironment);

@@ -1,0 +1,450 @@
+.orders-page,
+.client-orders-page {
+    min-height: 100vh;
+    background: #f8f5f0;
+}
+
+.orders-page-header {
+    max-width: 900px;
+}
+
+.orders-eyebrow {
+    color: #b65f45;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+}
+
+.orders-page-title {
+    margin: 0;
+    color: #292522;
+    font-family: Georgia, serif;
+    font-size: clamp(34px, 5vw, 48px);
+}
+
+.orders-page-subtitle {
+    color: #777;
+    max-width: 760px;
+    margin: 12px 0 0;
+    line-height: 1.65;
+}
+
+.orders-alert {
+    border-radius: 10px;
+}
+
+.orders-balance-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.balance-card {
+    background: #fff;
+    border: 1px solid #e1d9d0;
+    border-radius: 14px;
+    padding: 22px;
+    min-height: 145px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, .04);
+}
+
+.balance-card-withdrawable {
+    border-top: 4px solid #198754;
+}
+
+.balance-card-pending {
+    border-top: 4px solid #f0ad00;
+}
+
+.balance-card-withdrawn {
+    border-top: 4px solid #6c757d;
+}
+
+.balance-label {
+    color: #777;
+    font-size: 14px;
+    margin-bottom: 7px;
+}
+
+.balance-value {
+    color: #292522;
+    font-size: 26px;
+    font-weight: 800;
+}
+
+.balance-card-withdrawable .balance-value {
+    color: #198754;
+}
+
+.balance-help {
+    color: #888;
+    font-size: 12px;
+    margin-top: 7px;
+}
+
+.order-management-card {
+    background: #fff;
+    border: 1px solid #d9d3cc;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 7px 24px rgba(0, 0, 0, .06);
+}
+
+.order-card-header {
+    padding: 22px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    border-bottom: 1px solid #eee8e1;
+}
+
+.order-number {
+    font-size: 20px;
+    font-weight: 700;
+    color: #292522;
+}
+
+.order-meta {
+    margin-top: 4px;
+    color: #888;
+    font-size: 13px;
+}
+
+.order-status-badge {
+    display: inline-flex;
+    align-items: center;
+    min-height: 30px;
+    padding: 5px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+.status-en_attente {
+    background: #6c757d;
+    color: #fff;
+}
+
+.status-en_cours {
+    background: #ffc107;
+    color: #292522;
+}
+
+.status-termine {
+    background: #198754;
+    color: #fff;
+}
+
+.order-progress-block {
+    padding: 18px 24px 10px;
+    background: #fcfbf9;
+}
+
+.order-progress-track {
+    width: 100%;
+    height: 8px;
+    background: #e5e0da;
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.order-progress-fill {
+    height: 100%;
+    border-radius: 999px;
+    transition: width .25s ease;
+}
+
+.status-fill-en_attente {
+    background: #6c757d;
+}
+
+.status-fill-en_cours {
+    background: #ffc107;
+}
+
+.status-fill-termine {
+    background: #198754;
+}
+
+.order-progress-labels {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 8px;
+    color: #aaa;
+    font-size: 11px;
+}
+
+.order-progress-labels .active {
+    color: #292522;
+    font-weight: 700;
+}
+
+.order-section {
+    padding: 20px 24px 0;
+}
+
+.section-title {
+    color: #292522;
+    font-size: 14px;
+    font-weight: 800;
+    margin-bottom: 12px;
+}
+
+.order-item-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 16px;
+    margin-bottom: 10px;
+    border: 1px solid #ded8d1;
+    border-radius: 8px;
+    background: #fff;
+}
+
+.order-item-title {
+    color: #292522;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.order-item-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    color: #666;
+    font-size: 13px;
+}
+
+.order-item-price {
+    color: #292522;
+    white-space: nowrap;
+}
+
+.order-total-row {
+    margin: 4px 24px 0;
+    padding: 18px 0;
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    border-bottom: 1px solid #eee8e1;
+    font-size: 16px;
+}
+
+.order-total-row strong {
+    color: #b65f45;
+}
+
+.management-panel {
+    margin: 20px 24px;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.management-panel-progress {
+    background: #f7f9ff;
+    border: 1px solid #d8e1f5;
+}
+
+.management-panel-withdrawal {
+    background: #f7fbf8;
+    border: 1px solid #cfe6d8;
+}
+
+.management-panel-confirmed {
+    background: #f2f8f4;
+    border: 1px solid #cfe6d8;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    color: #198754;
+}
+
+.management-panel-heading {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    align-items: flex-start;
+}
+
+.management-panel-heading h3 {
+    margin: 0;
+    color: #292522;
+    font-size: 19px;
+}
+
+.management-kicker {
+    color: #777;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    margin-bottom: 5px;
+}
+
+.management-number {
+    width: 34px;
+    height: 34px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #fff;
+    border: 1px solid #d7d0c8;
+    color: #777;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.management-description {
+    color: #777;
+    font-size: 13px;
+    line-height: 1.55;
+    margin: 10px 0 16px;
+}
+
+.management-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr 1fr;
+    gap: 12px;
+    align-items: end;
+}
+
+.management-input {
+    min-height: 44px;
+}
+
+.form-label {
+    font-weight: 700;
+    color: #49433e;
+    font-size: 13px;
+}
+
+.form-label span {
+    color: #999;
+    font-weight: 400;
+}
+
+.management-actions {
+    margin-top: 14px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn-management {
+    min-height: 44px;
+    padding: 10px 22px;
+    font-weight: 700;
+}
+
+.withdrawal-ready,
+.withdrawal-locked,
+.withdrawal-pending,
+.withdrawal-success {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin: 12px 0 16px;
+    font-size: 13px;
+}
+
+.withdrawal-ready {
+    color: #198754;
+}
+
+.withdrawal-pending {
+    color: #8a6d00;
+}
+
+.withdrawal-success {
+    color: #198754;
+}
+
+.withdrawal-locked {
+    color: #777;
+}
+
+.withdrawal-grid {
+    grid-template-columns: 1fr 1.4fr 1fr;
+}
+
+.withdrawal-button-column {
+    display: flex;
+}
+
+.btn-withdraw {
+    width: 100%;
+    min-height: 44px;
+    font-weight: 800;
+}
+
+.btn-withdraw-disabled {
+    min-height: 44px;
+    font-weight: 700;
+}
+
+.followup-preview {
+    margin: 20px 24px 0;
+    padding: 16px;
+    border: 1px solid #e0dbd5;
+    border-radius: 9px;
+    background: #faf9f7;
+}
+
+.followup-note {
+    color: #555;
+    line-height: 1.55;
+    margin-bottom: 10px;
+}
+
+.followup-image {
+    display: block;
+    max-width: 100%;
+    max-height: 220px;
+    border-radius: 8px;
+}
+
+@media (max-width: 900px) {
+    .orders-balance-grid,
+    .management-form-grid,
+    .withdrawal-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .management-actions {
+        justify-content: stretch;
+    }
+
+    .btn-management {
+        width: 100%;
+    }
+}
+
+@media (max-width: 600px) {
+    .order-card-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .order-item-row {
+        flex-direction: column;
+    }
+
+    .order-item-price {
+        white-space: normal;
+    }
+
+    .management-panel,
+    .order-section,
+    .followup-preview {
+        margin-left: 14px;
+        margin-right: 14px;
+    }
+
+    .order-total-row {
+        margin-left: 14px;
+        margin-right: 14px;
+    }
+}

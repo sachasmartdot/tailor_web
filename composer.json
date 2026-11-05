@@ -1,0 +1,11 @@
+{
+    "require": {
+        "kreait/firebase-php": "^7.0",
+        "google/cloud-firestore": "^2.3"
+    }, 
+    "autoload": {
+    	"psr-4": {
+    		"App\\": "src/"
+    	}
+    }
+}

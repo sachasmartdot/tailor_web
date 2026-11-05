@@ -1,0 +1,323 @@
+/* =========================================================
+   Tailors page - visual language inspired by the Figma design
+   ========================================================= */
+
+.tailors-page {
+    background: var(--color-cream);
+    min-height: calc(100vh - 74px);
+}
+
+.tailors-container {
+    width: min(1180px, calc(100% - 40px));
+    margin: 0 auto;
+}
+
+.tailors-hero {
+    padding: 76px 0 58px;
+    border-bottom: 1px solid var(--color-sand);
+    background:
+        radial-gradient(circle at 88% 22%, rgba(201, 146, 42, .09), transparent 25%),
+        var(--color-cream);
+}
+
+.tailors-eyebrow,
+.tailors-section-kicker,
+.tailor-card-label {
+    margin: 0;
+    color: var(--color-terracotta);
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .18em;
+}
+
+.tailors-title {
+    margin: 9px 0 12px;
+    color: var(--color-charcoal);
+    font-family: var(--font-serif);
+    font-size: clamp(2.6rem, 6vw, 4.8rem);
+    font-weight: 600;
+    line-height: .98;
+    letter-spacing: -.035em;
+}
+
+.tailors-intro {
+    max-width: 620px;
+    margin: 0 0 32px;
+    color: var(--color-stone);
+    font-size: 1.02rem;
+    line-height: 1.75;
+}
+
+.tailors-search-wrap {
+    position: relative;
+    max-width: 720px;
+}
+
+.tailors-search-icon {
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    width: 20px;
+    height: 20px;
+    color: var(--color-stone);
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.tailors-search {
+    width: 100%;
+    min-height: 58px;
+    padding: 0 22px 0 54px;
+    border: 1px solid var(--color-sand);
+    border-radius: 3px;
+    outline: 0;
+    background: #fff;
+    color: var(--color-charcoal);
+    font-size: .95rem;
+    box-shadow: 0 8px 30px rgba(28, 20, 16, .045);
+    transition: border-color .18s ease, box-shadow .18s ease;
+}
+
+.tailors-search::placeholder {
+    color: #a49689;
+}
+
+.tailors-search:focus {
+    border-color: var(--color-terracotta);
+    box-shadow: 0 0 0 4px rgba(184, 78, 35, .08);
+}
+
+.tailors-list-section {
+    padding: 52px 0 78px;
+}
+
+.tailors-list-header {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 28px;
+}
+
+.tailors-section-title {
+    margin: 6px 0 0;
+    color: var(--color-charcoal);
+    font-family: var(--font-serif);
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    font-weight: 600;
+}
+
+.tailors-count {
+    color: var(--color-stone);
+    font-size: .86rem;
+}
+
+.tailors-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 28px;
+}
+
+.tailor-showcase-card {
+    overflow: hidden;
+    border: 1px solid var(--color-sand);
+    background: #fff;
+    box-shadow: 0 8px 30px rgba(28, 20, 16, .035);
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.tailor-showcase-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 42px rgba(28, 20, 16, .09);
+}
+
+.tailor-card-image-link {
+    display: block;
+    text-decoration: none;
+}
+
+.tailor-card-image-wrap {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    background: var(--color-warm);
+}
+
+.tailor-card-image {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    transition: transform .35s ease;
+}
+
+.tailor-showcase-card:hover .tailor-card-image {
+    transform: scale(1.035);
+}
+
+.tailor-card-badge {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    padding: 7px 10px;
+    border: 1px solid rgba(255, 255, 255, .5);
+    background: rgba(28, 20, 16, .78);
+    color: #fff;
+    font-size: .68rem;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+}
+
+.tailor-card-body {
+    padding: 22px;
+}
+
+.tailor-card-heading {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.tailor-card-name {
+    margin: 5px 0 0;
+    color: var(--color-charcoal);
+    font-family: var(--font-serif);
+    font-size: 1.38rem;
+    font-weight: 600;
+    line-height: 1.15;
+}
+
+.tailor-card-mark {
+    flex: 0 0 auto;
+    width: 34px;
+    height: 34px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--color-terracotta);
+    color: #fff;
+    font-size: .78rem;
+    font-weight: 700;
+}
+
+.tailor-card-description {
+    min-height: 58px;
+    margin: 17px 0 21px;
+    color: var(--color-stone);
+    font-size: .91rem;
+    line-height: 1.65;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+}
+
+.tailor-card-button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 12px 0 2px;
+    border-top: 1px solid var(--color-sand);
+    color: var(--color-charcoal);
+    font-size: .84rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: color .18s ease;
+}
+
+.tailor-card-button span {
+    color: var(--color-terracotta);
+    font-size: 1.1rem;
+    transition: transform .18s ease;
+}
+
+.tailor-card-button:hover {
+    color: var(--color-terracotta);
+}
+
+.tailor-card-button:hover span {
+    transform: translateX(4px);
+}
+
+.tailors-empty {
+    grid-column: 1 / -1;
+    padding: 60px 20px;
+    border: 1px dashed var(--color-sand);
+    background: rgba(255, 255, 255, .55);
+    text-align: center;
+}
+
+.tailors-empty-mark {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 15px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--color-warm);
+    color: var(--color-terracotta);
+    font-family: var(--font-serif);
+    font-weight: 700;
+}
+
+.tailors-empty h3 {
+    margin: 0 0 7px;
+    color: var(--color-charcoal);
+    font-family: var(--font-serif);
+    font-size: 1.35rem;
+}
+
+.tailors-empty p {
+    margin: 0;
+    color: var(--color-stone);
+    font-size: .9rem;
+}
+
+.tailors-empty-search[hidden],
+.tailor-showcase-card[hidden] {
+    display: none !important;
+}
+
+@media (max-width: 991.98px) {
+    .tailors-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 767.98px) {
+    .tailors-container {
+        width: min(100% - 28px, 1180px);
+    }
+
+    .tailors-hero {
+        padding: 54px 0 42px;
+    }
+
+    .tailors-title {
+        font-size: 3.15rem;
+    }
+
+    .tailors-list-section {
+        padding: 40px 0 56px;
+    }
+
+    .tailors-list-header {
+        align-items: start;
+        flex-direction: column;
+        margin-bottom: 22px;
+    }
+
+    .tailors-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .tailor-card-image-wrap {
+        aspect-ratio: 16 / 10;
+    }
+}

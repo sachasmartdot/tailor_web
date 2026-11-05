@@ -1,0 +1,224 @@
+/*
+  Palette reprise du design fourni (Tailor_Design).
+  Polices : on utilise des polices systeme proches (serif / sans-serif)
+  pour que le site fonctionne sans connexion a Google Fonts.
+*/
+
+:root {
+  --color-cream: #FAF7F0;
+  --color-charcoal: #1C1410;
+  --color-terracotta: #B84E23;
+  --color-terracotta-dark: #96401D;
+  --color-forest: #2D4A3E;
+  --color-gold: #C9922A;
+  --color-warm: #F2EDE5;
+  --color-stone: #8B7B6B;
+  --color-sand: #E5DDD4;
+
+  --font-serif: Georgia, "Times New Roman", serif;
+  --font-sans: "Segoe UI", Arial, sans-serif;
+}
+
+body {
+  background-color: var(--color-cream);
+  color: var(--color-charcoal);
+  font-family: var(--font-sans);
+}
+
+section {
+	padding: 20px 10%;
+}
+
+a {
+  color: var(--color-terracotta);
+}
+
+/* En-tete */
+
+.site-header {
+  background-color: var(--color-cream);
+  border-bottom: 1px solid var(--color-sand);
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 1.25rem;
+  color: var(--color-charcoal) !important;
+}
+
+.brand-logo {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background-color: var(--color-terracotta);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: .9rem;
+}
+
+.btn-outline-cart {
+  border: 1px solid var(--color-sand);
+  color: var(--color-charcoal);
+  background-color: #fff;
+}
+
+.btn-outline-cart:hover {
+  border-color: var(--color-terracotta);
+  color: var(--color-terracotta);
+}
+
+.badge-cart {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background-color: var(--color-terracotta);
+  color: #fff;
+  border-radius: 50%;
+  width: 1.15rem;
+  height: 1.15rem;
+  font-size: .65rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Titres */
+
+.page-title {
+  font-family: var(--font-serif);
+  font-weight: 600;
+}
+
+.section-title {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+/* Boutons */
+
+.btn-primary {
+  background-color: var(--color-terracotta);
+  border-color: var(--color-terracotta);
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: var(--color-terracotta-dark);
+  border-color: var(--color-terracotta-dark);
+}
+
+.btn-outline-primary {
+  color: var(--color-terracotta);
+  border-color: var(--color-terracotta);
+}
+
+.btn-outline-primary:hover {
+  background-color: var(--color-terracotta);
+  border-color: var(--color-terracotta);
+  color: #fff;
+}
+
+/* Cartes de modeles */
+
+.model-card {
+  border: 1px solid var(--color-sand);
+  background-color: #fff;
+  transition: box-shadow .15s ease-in-out;
+}
+
+.model-card:hover {
+  box-shadow: 0 .5rem 1rem rgba(28, 20, 16, .08);
+}
+
+.price {
+  color: var(--color-forest);
+  font-weight: 600;
+}
+
+/* Cartes generiques (profil, detail, formulaire, confirmation) */
+
+.tailor-card,
+.detail-card,
+.form-card,
+.confirmation-card {
+  background-color: #fff;
+  border: 1px solid var(--color-sand);
+  border-radius: .5rem;
+  padding: 1.5rem;
+}
+
+.form-card {
+  max-width: 32rem;
+}
+
+.total-row {
+  border-top: 1px solid var(--color-sand);
+  padding-top: 1rem;
+}
+
+.confirmation-card {
+  max-width: 28rem;
+  margin: 2rem auto;
+}
+
+.confirmation-icon {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  background-color: var(--color-forest);
+  color: #fff;
+  font-size: 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+}
+
+/* Accueil */
+
+.home-hero {
+  padding: 4rem 1rem;
+  background: center/cover no-repeat url('../images/home_hero.jpg');
+  background-color: rgba(255, 0, 0, 0.6);
+  min-height: 70vh;
+  
+}
+
+/* effet moins opaque du fond */
+.home-hero::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+}
+.hero-content{
+  position: relative;
+  z-index: 1;
+  color: white;
+}
+/* Divers */
+
+.back-link {
+  color: var(--color-stone);
+  text-decoration: none;
+}
+
+.back-link:hover {
+  color: var(--color-terracotta);
+}
+
+.site-footer {
+  border-top: 1px solid var(--color-sand);
+  color: var(--color-stone);
+  padding: 1.5rem 0;
+  margin-top: 3rem;
+  font-size: .875rem;
+}
