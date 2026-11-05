@@ -5,7 +5,7 @@ deploy.env
 .env
 
 # dependances : recreees par composer install
-vendor/
+/vendor/
 
 # donnees creees a l'execution
 public/assets/users/
