@@ -8,7 +8,7 @@ deploy.env
 /vendor/
 
 # donnees creees a l'execution
-public/assets/users/
+# public/assets/users/
 storage/payments/*.log
 
 # fichiers d'editeur et de systeme
