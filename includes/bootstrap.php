@@ -102,7 +102,19 @@
 		
 		return $user;
 	}
-	
+
+	/**
+	* Réserve une page aux utilisateurs connectés, quel que soit leur rôle.
+	* Sortie : l'utilisateur connecté. Sinon, renvoie à l'accueil.
+	*/
+	function requireLogin(): array {
+		$user = $_SESSION['user'] ?? null;
+		if ($user === null) {
+			header('Location: index.php');
+			exit;
+		}
+		return $user;
+	}	
 
 	/** Jeton anti-CSRF de la session (à mettre dans chaque formulaire POST). */
 	function csrfToken(): string {

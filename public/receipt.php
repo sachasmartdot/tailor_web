@@ -8,13 +8,14 @@ require_once __DIR__ . '/../includes/bootstrap.php';
 use App\Data\OrderRepository;
 use App\Support\ReceiptPdf;
 
-$user = requireRole('client');
+//$user = requireRole('client');
+$user = requireLogin(); // il fallait s'assurer que le tailleur puisse faire ce que fait le client avant d'etre soi-meme tailleur.
 
 $order = OrderRepository::findById((string) ($_GET['id'] ?? ''));
 if ($order === null || !OrderRepository::estPayee($order) || ($order['client_uid'] ?? '') !== $user['uid']) {
     header('Location: client_orders.php');
     exit;
-}
+} // verifie que le client_uid de la commande est celui de la personne connectee: le tailleur ne telecharge donc que ses propres factures d'achat, pas de ses clients
 
 $fiche = $firebaseDb->collection('users')->document((string) ($order['tailor_uid'] ?? ''))->snapshot();
 $tailleur = $fiche->exists() ? ($fiche->data()['pseudo'] ?? 'Tailleur') : 'Tailleur';

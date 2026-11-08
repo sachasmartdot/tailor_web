@@ -58,8 +58,11 @@ step_pare_feu(){
 
 step_code(){
   log "Mise a jour du code depuis GitHub"
-  git -C "$APP_DIR" pull --ff-only
+  # git tourne en tant que proprietaire du dossier (ubuntu) : c'est lui qui a la cle de deploiement
+  OWNER="$(stat -c %U "$APP_DIR")"
+  sudo -u "$OWNER" git -C "$APP_DIR" pull --ff-only
 }
+
 
 step_composer(){
   log "Installation des dependances PHP"
@@ -87,7 +90,7 @@ EOF
   # Pool dedie : c'est ici que PHP-FPM recoit les variables d'environnement
   cat > "/etc/php/$PHPV/fpm/pool.d/tailor.conf" <<EOF
 [tailor]
-user = www-data
+user = marc
 group = www-data
 listen = /run/php/tailor.sock
 listen.owner = www-data
@@ -103,14 +106,14 @@ EOF
   chmod 600 "/etc/php/$PHPV/fpm/pool.d/tailor.conf"   # contient la cle Aangaraa
 
   touch /var/log/tailor-php-error.log
-  chown www-data:www-data /var/log/tailor-php-error.log
+  chown marc:marc /var/log/tailor-php-error.log
   systemctl restart "php$PHPV-fpm"
 }
 
 step_droits(){
   log "Droits sur les dossiers et la cle Firebase"
   mkdir -p "$APP_DIR/storage/payments" "$APP_DIR/public/assets/users"
-  chown -R www-data:www-data "$APP_DIR/storage" "$APP_DIR/public/assets/users"
+  chown -R marc:marc "$APP_DIR/storage" "$APP_DIR/public/assets/users"
   # la cle est hors de public/ (non servie par nginx), lisible par PHP seulement
   chown root:www-data "$APP_DIR/cle-firebase.json"
   chmod 640 "$APP_DIR/cle-firebase.json"
