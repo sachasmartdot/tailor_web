@@ -18,8 +18,10 @@
 
 .article-detail-image {
     width: 100%;
-    height: 560px;
-    object-fit: cover;
+    height: auto;
+    max-height: 80vh;
+    object-fit: contain;      /* l'image est affichée en entier, sans être coupée */
+    background: #f3eee8;      /* remplit les bandes libres autour de l'image */
     display: block;
 }
 

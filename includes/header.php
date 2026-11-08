@@ -67,7 +67,7 @@ $cartCount = CartService::count();
     </head>
 <body>
 
-<header class="site-header position-relative z-1">
+<header class="site-header position-relative z-3">
     <nav class="navbar navbar-expand-lg py-3">
         <div class="container d-flex justify-content-between align-items-center">
             
@@ -95,10 +95,13 @@ $cartCount = CartService::count();
                             <!-- si c'est un tailleur -->
                             <?php if(($_SESSION['user']['type'] ?? '') === 'tailleur'): ?>
                                 <li>
-                                    <a href="tailor_profile.php?uid=<?= e($_SESSION['user']['uid']) ?>">Mon profil</a>
+                                    <a href="tailor_profile.php?uid=<?= e($_SESSION['user']['uid']) ?>" class="dropdown-item">Mon profil</a>
                                 </li>
                                 <li>
-                                    <a href="tailor_orders.php" class="dropdown-item">Mes commandes</a>
+                                    <a href="tailor_orders.php" class="dropdown-item">Commandes reçues</a>
+                                </li>
+                                <li>
+                                    <a href="client_orders.php" class="dropdown-item">Mes achats</a>
                                 </li>
                             <?php 
                             // si c'est un client
@@ -220,7 +223,7 @@ $cartCount = CartService::count();
                                 name="type">
 
                             <label for="rememberMe">
-                                Je suis un tailleur
+                                se rappeler de moi
                             </label>
                         </div>
 

@@ -9,7 +9,8 @@ require_once __DIR__ . '/../includes/bootstrap.php';
 
 use App\Data\OrderRepository;
 
-$user = requireRole('client');
+//$user = requireRole('client');
+$user = requireLogin(); // used in "(confirmReception, getByClient)"
 
 // --- Action : "J'ai bien reçu ma commande" -------------------------------------------------
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
