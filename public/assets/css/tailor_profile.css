@@ -1,677 +1,487 @@
-/* =========================================================
-   TAILOR PROFILE
-========================================================= */
-
-.tailor-profile-page {
-    background: #f7f3ed;
-    color: #292622;
-    min-height: 100vh;
-}
+/* ==========================================================================
+   TAILOR PLATFORM - tailor_profile.css
+   Profil d'un tailleur (tailor_profile.php) : présentation, actions,
+   collection de vêtements, états vides. Dépend des variables de style.css
+   (à charger avant). Aucune information nouvelle n'est affichée : on met
+   en forme ce que la page contient déjà.
+   ========================================================================== */
 
 .tailor-profile-container {
-    width: min(1180px, calc(100% - 40px));
-    margin: 0 auto;
+  width: min(100% - 2 * var(--gutter), var(--container-max));
+  margin-inline: auto;
 }
 
 
-/* =========================================================
-   BACK LINK
-========================================================= */
+/* Retour et alerte
+   ========================================================================== */
 
 .tailor-profile-back {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-
-    padding: 28px 0 20px;
-
-    color: #292622;
-    text-decoration: none;
-
-    font-size: 14px;
-    font-weight: 600;
-
-    transition: color 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 2.75rem;
+  padding-top: var(--space-4);
+  color: var(--color-muted);
+  font-size: .875rem;
+  text-decoration: none;
+  transition: color var(--ease);
 }
 
 .tailor-profile-back:hover {
-    color: #a6533c;
+  color: var(--color-terracotta);
 }
-
-
-/* =========================================================
-   ALERT
-========================================================= */
 
 .tailor-profile-alert {
-    margin: 20px 0;
-    padding: 16px 18px;
-
-    background: #fff;
-    border-left: 3px solid #a6533c;
-
-    color: #292622;
-
-    box-shadow: 0 8px 30px rgba(41, 38, 34, 0.06);
+  margin: var(--space-4) 0;
+  padding: var(--space-3) var(--space-4);
+  background: #fff;
+  border: 1px solid var(--color-sand);
+  border-left: 3px solid var(--color-terracotta);
 }
 
 
-/* =========================================================
-   HERO
-========================================================= */
+/* Présentation
+   Mobile : photo carrée puis texte. Dès 768px : photo en portrait à gauche.
+   ========================================================================== */
 
 .tailor-profile-hero {
-    padding: 20px 0 80px;
+  padding: var(--space-4) 0 clamp(2.5rem, 7vw, 4.5rem);
 }
 
 .tailor-profile-intro {
-    display: grid;
-    grid-template-columns: 420px 1fr;
-    gap: 70px;
-
-    align-items: center;
-
-    padding: 30px 0;
+  display: grid;
+  gap: var(--space-5);
+  align-items: center;
 }
-
-
-/* =========================================================
-   PROFILE PHOTO
-========================================================= */
 
 .tailor-profile-photo-wrap {
-    position: relative;
-
-    width: 100%;
-    height: 480px;
-
-    overflow: hidden;
-
-    background: #e9e0d5;
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+  background: var(--color-warm);
 }
 
+/* Les avatars sont de formats très variés : cadrage au-dessus du centre */
 .tailor-profile-photo {
-    width: 100%;
-    height: 100%;
-
-    display: block;
-
-    object-fit: cover;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 25%;
 }
 
 .tailor-profile-photo-badge {
-    position: absolute;
-
-    left: 20px;
-    bottom: 20px;
-
-    padding: 8px 12px;
-
-    background: #a6533c;
-    color: #fff;
-
-    font-size: 10px;
-    font-weight: 700;
-
-    letter-spacing: 0.14em;
-}
-
-
-/* =========================================================
-   PROFILE TEXT
-========================================================= */
-
-.tailor-profile-info {
-    max-width: 600px;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  padding: var(--space-1) var(--space-3);
+  background: var(--color-charcoal);
+  color: var(--color-cream);
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
 }
 
 .tailor-profile-eyebrow {
-    margin: 0 0 18px;
-
-    color: #a6533c;
-
-    font-size: 11px;
-    font-weight: 700;
-
-    letter-spacing: 0.18em;
+  display: inline-block;
+  margin: 0 0 var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 2px solid var(--color-gold);
+  color: var(--color-terracotta);
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
 }
 
 .tailor-profile-name {
-    margin: 0 0 24px;
-
-    color: #292622;
-
-    font-family: Georgia, "Times New Roman", serif;
-
-    font-size: clamp(42px, 5vw, 72px);
-    font-weight: 400;
-
-    line-height: 0.98;
+  margin: 0 0 var(--space-4);
+  font-family: var(--font-serif);
+  font-size: clamp(2.4rem, 7vw, 4.5rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -.03em;
+  overflow-wrap: anywhere;
 }
 
 .tailor-profile-description {
-    max-width: 560px;
+  max-width: 36rem;
+  margin: 0 0 var(--space-5);
+  color: var(--color-muted);
+  font-size: 1.02rem;
+  line-height: 1.75;
+}
 
-    margin: 0 0 34px;
+@media (min-width: 768px) {
+  .tailor-profile-intro {
+    grid-template-columns: minmax(15rem, 22rem) minmax(0, 1fr);
+    gap: clamp(2rem, 6vw, 4.5rem);
+  }
 
-    color: #706a63;
-
-    font-size: 17px;
-    line-height: 1.75;
+  .tailor-profile-photo-wrap {
+    aspect-ratio: 4 / 5;
+  }
 }
 
 
-/* =========================================================
-   ACTIONS
-========================================================= */
+/* Actions : deux liens au même gabarit que les boutons du site
+   ========================================================================== */
 
 .tailor-profile-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
 }
 
 .tailor-profile-primary-button,
 .tailor-profile-secondary-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    min-height: 48px;
-
-    padding: 0 22px;
-
-    text-decoration: none;
-
-    font-size: 13px;
-    font-weight: 700;
-
-    transition:
-        background 0.2s ease,
-        color 0.2s ease,
-        border-color 0.2s ease,
-        transform 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  min-height: 3rem;
+  padding: 0 var(--space-5);
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  font-size: .85rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: background-color var(--ease), color var(--ease), border-color var(--ease);
 }
 
 .tailor-profile-primary-button {
-    gap: 12px;
-
-    background: #a6533c;
-    color: #fff;
-
-    border: 1px solid #a6533c;
+  background: var(--color-terracotta);
+  border-color: var(--color-terracotta);
+  color: #fff;
 }
 
 .tailor-profile-primary-button:hover {
-    background: #8d4432;
-    color: #fff;
-
-    transform: translateY(-1px);
+  background: var(--color-terracotta-dark);
+  border-color: var(--color-terracotta-dark);
+  color: #fff;
 }
 
 .tailor-profile-secondary-button {
-    background: transparent;
-    color: #292622;
-
-    border: 1px solid #c8bfb4;
+  background: transparent;
+  border-color: var(--color-charcoal);
+  color: var(--color-charcoal);
 }
 
 .tailor-profile-secondary-button:hover {
-    background: #292622;
-    color: #fff;
+  background: var(--color-charcoal);
+  color: var(--color-cream);
+}
 
-    border-color: #292622;
+@media (max-width: 575.98px) {
+  .tailor-profile-actions {
+    flex-direction: column;
+  }
+
+  .tailor-profile-primary-button,
+  .tailor-profile-secondary-button {
+    width: 100%;
+  }
 }
 
 
-/* =========================================================
-   COLLECTION
-========================================================= */
+/* Collection
+   Bande blanche pour la distinguer de la présentation.
+   ========================================================================== */
 
 .tailor-profile-collection {
-    padding: 80px 0 110px;
-
-    background: #fff;
-
-    border-top: 1px solid #e5ddd3;
+  padding: clamp(2.5rem, 7vw, 4.5rem) 0 clamp(3rem, 8vw, 5rem);
+  background: #fff;
+  border-top: 1px solid var(--color-sand);
+  /* Le lien « View collection » arrive sous la barre de navigation */
+  scroll-margin-top: var(--space-4);
 }
 
 .tailor-profile-section-header {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-
-    gap: 30px;
-
-    margin-bottom: 42px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-4);
+  margin-bottom: var(--space-5);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--color-sand);
 }
 
 .tailor-profile-section-kicker {
-    margin: 0 0 10px;
-
-    color: #a6533c;
-
-    font-size: 10px;
-    font-weight: 700;
-
-    letter-spacing: 0.18em;
+  margin: 0 0 var(--space-1);
+  color: var(--color-terracotta);
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
 }
 
 .tailor-profile-section-title {
-    margin: 0;
-
-    font-family: Georgia, "Times New Roman", serif;
-
-    color: #292622;
-
-    font-size: clamp(32px, 4vw, 48px);
-    font-weight: 400;
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: clamp(1.7rem, 4vw, 2.6rem);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -.015em;
 }
 
 .tailor-profile-section-count {
-    margin: 0;
-
-    color: #8a8279;
-
-    font-size: 13px;
+  margin: 0;
+  color: var(--color-muted);
+  font-size: .875rem;
 }
 
 
-/* =========================================================
-   MODEL GRID
-========================================================= */
+/* Grille et fiche d'un modèle
+   Même principe que le catalogue : la photo en vedette (4:5, cadrée par
+   le haut), le texte posé directement dessous, sans boîte.
+   ========================================================================== */
 
 .tailor-profile-grid {
-    display: grid;
-
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-
-    gap: 34px 24px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-6) var(--space-4);
 }
 
+@media (min-width: 480px) {
+  .tailor-profile-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
 
-/* =========================================================
-   MODEL CARD
-========================================================= */
+@media (min-width: 768px) {
+  .tailor-profile-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-6) var(--space-5);
+  }
+}
 
 .tailor-model-card {
-    min-width: 0;
-
-    background: #f7f3ed;
-
-    border: 1px solid #ebe4db;
-
-    transition:
-        transform 0.25s ease,
-        box-shadow 0.25s ease;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
 }
-
-.tailor-model-card:hover {
-    transform: translateY(-4px);
-
-    box-shadow: 0 18px 45px rgba(41, 38, 34, 0.10);
-}
-
-
-/* =========================================================
-   MODEL IMAGE
-========================================================= */
 
 .tailor-model-image-link {
-    display: block;
-
-    text-decoration: none;
+  display: block;
+  text-decoration: none;
 }
 
 .tailor-model-image-wrap {
-    position: relative;
-
-    height: 390px;
-
-    overflow: hidden;
-
-    background: #e9e0d5;
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  background: var(--color-warm);
 }
 
 .tailor-model-image {
-    width: 100%;
-    height: 100%;
-
-    display: block;
-
-    object-fit: cover;
-
-    transition: transform 0.5s ease;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  transition: transform .5s ease;
 }
 
 .tailor-model-card:hover .tailor-model-image {
-    transform: scale(1.035);
+  transform: scale(1.03);
 }
 
+/* Pastille « View » : au survol sur ordinateur, toujours visible au toucher */
 .tailor-model-view {
-    position: absolute;
-
-    right: 16px;
-    bottom: 16px;
-
-    padding: 8px 11px;
-
-    background: rgba(255, 255, 255, 0.92);
-
-    color: #292622;
-
-    font-size: 10px;
-    font-weight: 700;
-
-    letter-spacing: 0.08em;
-
-    opacity: 0;
-
-    transform: translateY(5px);
-
-    transition:
-        opacity 0.25s ease,
-        transform 0.25s ease;
+  position: absolute;
+  right: var(--space-3);
+  bottom: var(--space-3);
+  padding: var(--space-1) var(--space-3);
+  background: var(--color-cream);
+  color: var(--color-charcoal);
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity var(--ease), transform var(--ease);
 }
 
-.tailor-model-card:hover .tailor-model-view {
+.tailor-model-card:hover .tailor-model-view,
+.tailor-model-image-link:focus-visible .tailor-model-view {
+  opacity: 1;
+  transform: none;
+}
+
+@media (hover: none) {
+  .tailor-model-view {
     opacity: 1;
-    transform: translateY(0);
+    transform: none;
+  }
 }
-
-
-/* =========================================================
-   MODEL CONTENT
-========================================================= */
 
 .tailor-model-content {
-    padding: 22px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding-top: var(--space-3);
 }
 
 .tailor-model-top {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-
-    gap: 15px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-3);
 }
 
 .tailor-model-label {
-    margin: 0 0 8px;
-
-    color: #a6533c;
-
-    font-size: 9px;
-    font-weight: 700;
-
-    letter-spacing: 0.15em;
+  margin: 0 0 var(--space-1);
+  color: var(--color-terracotta);
+  font-size: .66rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
 }
 
 .tailor-model-title {
-    margin: 0;
-
-    color: #292622;
-
-    font-family: Georgia, "Times New Roman", serif;
-
-    font-size: 25px;
-    font-weight: 400;
-
-    line-height: 1.1;
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  font-weight: 500;
+  line-height: 1.2;
 }
 
+/* Monogramme discret, même langage que la page des tailleurs */
 .tailor-model-mark {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    flex: 0 0 auto;
-
-    width: 32px;
-    height: 32px;
-
-    border: 1px solid #d5ccc2;
-
-    color: #a6533c;
-
-    font-size: 11px;
-    font-weight: 700;
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border: 1px solid var(--color-gold);
+  color: var(--color-terracotta);
+  font-family: var(--font-serif);
+  font-size: .75rem;
+  font-weight: 700;
 }
 
 .tailor-model-description {
-    margin: 18px 0;
-
-    color: #777068;
-
-    font-size: 13px;
-    line-height: 1.65;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  margin: var(--space-2) 0 0;
+  color: var(--color-muted);
+  font-size: .875rem;
+  line-height: 1.55;
 }
 
+/* Le pied de fiche est poussé en bas : prix et lien s'alignent d'une fiche à l'autre */
 .tailor-model-footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-1) var(--space-3);
+  margin-top: auto;
+  padding-top: var(--space-3);
+}
 
-    gap: 15px;
-
-    padding-top: 18px;
-
-    border-top: 1px solid #e2d9cf;
+.tailor-model-description + .tailor-model-footer,
+.tailor-model-top + .tailor-model-footer {
+  margin-top: var(--space-3);
 }
 
 .tailor-model-price {
-    color: #292622;
-
-    font-size: 14px;
-    font-weight: 700;
+  color: var(--color-forest);
+  font-size: .95rem;
+  font-weight: 700;
 }
 
 .tailor-model-button {
-    display: inline-flex;
-    align-items: center;
-
-    gap: 8px;
-
-    color: #a6533c;
-
-    text-decoration: none;
-
-    font-size: 12px;
-    font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 2.25rem;
+  color: var(--color-charcoal);
+  font-size: .8rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: color var(--ease);
 }
 
 .tailor-model-button:hover {
-    color: #8d4432;
+  color: var(--color-terracotta);
 }
 
 
-/* =========================================================
-   EMPTY STATE
-========================================================= */
+/* États vides et profil introuvable
+   ========================================================================== */
 
 .tailor-profile-empty {
-    grid-column: 1 / -1;
-
-    padding: 80px 30px;
-
-    text-align: center;
-
-    border: 1px solid #e5ddd3;
-
-    background: #f7f3ed;
+  grid-column: 1 / -1;
+  padding: clamp(2rem, 7vw, 4rem) var(--space-4);
+  border: 1px dashed var(--color-line-strong);
+  text-align: center;
 }
 
 .tailor-profile-empty-mark {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    width: 50px;
-    height: 50px;
-
-    margin-bottom: 20px;
-
-    background: #a6533c;
-    color: #fff;
-
-    font-size: 15px;
-    font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  margin-bottom: var(--space-3);
+  background: var(--color-terracotta);
+  color: #fff;
+  font-family: var(--font-serif);
+  font-weight: 700;
 }
 
 .tailor-profile-empty h3 {
-    margin: 0 0 10px;
-
-    font-family: Georgia, "Times New Roman", serif;
-
-    font-size: 28px;
-    font-weight: 400;
+  margin: 0 0 var(--space-2);
+  font-size: 1.6rem;
 }
 
 .tailor-profile-empty p {
-    margin: 0;
-
-    color: #777068;
-
-    font-size: 14px;
+  margin: 0;
+  color: var(--color-muted);
+  font-size: .9rem;
 }
 
-
-/* =========================================================
-   NOT FOUND
-========================================================= */
-
 .tailor-profile-not-found {
-    min-height: 70vh;
-
-    display: flex;
-    align-items: center;
-
-    text-align: center;
+  display: flex;
+  align-items: center;
+  min-height: 60vh;
+  padding: var(--space-6) 0;
+  text-align: center;
 }
 
 .tailor-profile-not-found .tailor-profile-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .tailor-profile-not-found h1 {
-    margin: 0 0 12px;
-
-    font-family: Georgia, "Times New Roman", serif;
-
-    font-size: 48px;
-    font-weight: 400;
+  margin: 0 0 var(--space-3);
+  font-size: clamp(2rem, 6vw, 3rem);
+  font-weight: 500;
 }
 
 .tailor-profile-not-found p {
-    margin: 0 0 28px;
-
-    color: #777068;
+  margin: 0 0 var(--space-5);
+  color: var(--color-muted);
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .tailor-model-image,
+  .tailor-model-view {
+    transition: none;
+  }
 
-/* =========================================================
-   TABLET
-========================================================= */
-
-@media (max-width: 900px) {
-
-    .tailor-profile-intro {
-        grid-template-columns: 320px 1fr;
-        gap: 40px;
-    }
-
-    .tailor-profile-photo-wrap {
-        height: 400px;
-    }
-
-    .tailor-profile-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .tailor-model-image-wrap {
-        height: 360px;
-    }
-}
-
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
-@media (max-width: 680px) {
-
-    .tailor-profile-container {
-        width: min(100% - 28px, 1180px);
-    }
-
-    .tailor-profile-back {
-        padding-top: 20px;
-    }
-
-    .tailor-profile-hero {
-        padding-bottom: 55px;
-    }
-
-    .tailor-profile-intro {
-        display: flex;
-        flex-direction: column;
-
-        align-items: stretch;
-
-        gap: 30px;
-
-        padding-top: 10px;
-    }
-
-    .tailor-profile-photo-wrap {
-        height: 390px;
-    }
-
-    .tailor-profile-name {
-        font-size: 48px;
-    }
-
-    .tailor-profile-description {
-        font-size: 15px;
-    }
-
-    .tailor-profile-actions {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .tailor-profile-primary-button,
-    .tailor-profile-secondary-button {
-        width: 100%;
-    }
-
-    .tailor-profile-collection {
-        padding: 55px 0 75px;
-    }
-
-    .tailor-profile-section-header {
-        align-items: flex-start;
-        flex-direction: column;
-
-        margin-bottom: 30px;
-    }
-
-    .tailor-profile-section-title {
-        font-size: 38px;
-    }
-
-    .tailor-profile-grid {
-        grid-template-columns: 1fr;
-        gap: 25px;
-    }
-
-    .tailor-model-image-wrap {
-        height: 420px;
-    }
-
-    .tailor-model-title {
-        font-size: 23px;
-    }
+  .tailor-model-card:hover .tailor-model-image {
+    transform: none;
+  }
 }

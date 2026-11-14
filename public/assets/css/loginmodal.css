@@ -1,212 +1,288 @@
+/* ==========================================================================
+   TAILOR PLATFORM - loginmodal.css
+   Fenêtre de connexion (#loginModal dans includes/header.php) et formulaire
+   d'inscription (register.php), qui réutilise les mêmes classes .login-*.
+   Dépend des variables de style.css (à charger avant).
+   ========================================================================== */
 
-/* ================================
-   MODAL CONNEXION
-================================ */
+
+/* Fenêtre
+   ========================================================================== */
 
 .login-modal-content {
-    position: relative;
-    border: none;
-    border-radius: 20px;
-    padding: 10px;
-    background: #ffffff;
+  position: relative;
+  background: #fff;
+  border: 0;
+  border-top: 3px solid var(--color-terracotta);
+  border-radius: var(--radius);
 }
 
-.login-close {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    z-index: 10;
+.login-modal-content .modal-body {
+  padding: clamp(1.25rem, 5vw, 2rem);
 }
 
-/* Formulaire */
+/* Le bouton de fermeture occupe le coin : on réserve de la place en haut */
+#loginModal .modal-body {
+  padding-top: 3rem;
+}
+
+/* Cible tactile de 40px (le bouton Bootstrap natif ne fait que 16px) */
+.login-modal-content .login-close {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-2);
+  z-index: 10;
+  box-sizing: border-box;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  background-size: .8rem;
+}
+
+/* Marges de la fenêtre sur petit écran, limitées à nos deux fenêtres
+   (l'ancienne règle visait tous les .modal-dialog du site) */
+@media (max-width: 575.98px) {
+  #loginModal .modal-dialog,
+  #signinModal .modal-dialog {
+    margin: 12px;
+  }
+}
+
+/* Sur la page d'inscription, la « fenêtre » est insérée dans la page */
+#signinModal {
+  padding-block: var(--space-4);
+}
+
+
+/* Formulaire
+   ========================================================================== */
 
 .login-form {
-    width: 100%;
-    padding: 25px;
+  width: 100%;
 }
 
 .login-field {
-    margin-bottom: 20px;
+  margin-bottom: var(--space-4);
 }
 
 .login-field label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 600;
-    color: #B84E23;
+  display: block;
+  margin-bottom: var(--space-2);
+  color: var(--color-charcoal);
+  font-size: .875rem;
+  font-weight: 600;
 }
 
 .login-input-group {
-    width: 100%;
-    height: 50px;
-
-    display: flex;
-    align-items: center;
-    gap: 10px;
-
-    padding: 0 14px;
-
-    border: 1px solid #dcdcdc;
-    border-radius: 10px;
-
-    background: #fff;
-
-    transition: 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 3rem;
+  padding: 0 var(--space-3);
+  background: #fff;
+  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius);
+  color: var(--color-muted);
+  transition: border-color var(--ease), box-shadow var(--ease);
 }
 
 .login-input-group:focus-within {
-    border-color: #96401D;
-    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+  border-color: var(--color-terracotta);
+  box-shadow: 0 0 0 .2rem rgba(184, 78, 35, .15);
 }
 
 .login-input-group svg {
-    flex-shrink: 0;
-    fill: #B84E23;
+  flex-shrink: 0;
+}
+
+/* Deux familles d'icônes cohabitent : celles de la fenêtre de connexion
+   sont dessinées au trait (attribut stroke), celles de register.php sont
+   pleines. On ne remplit que les secondes, sinon les premières deviennent
+   des aplats. */
+.login-input-group svg:not([stroke]) {
+  fill: currentColor;
 }
 
 .login-input-group input {
-    width: 100%;
-    border: none;
-    outline: none;
-    background: transparent;
-    font-size: 15px;
+  flex: 1;
+  min-width: 0;
+  padding: var(--space-2) 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--color-charcoal);
+  /* 16px : évite le zoom automatique à la saisie sur iPhone */
+  font-size: 1rem;
 }
 
 .login-input-group input::placeholder {
-    color: #B84E23;
+  color: var(--color-muted);
+  opacity: .8;
 }
 
-/* Options */
+/* Champs Bootstrap de register.php (téléphone, photo, conditions) :
+   même hauteur et même libellé que les champs .login-* */
+.login-form .col-form-label {
+  color: var(--color-charcoal);
+  font-size: .875rem;
+  font-weight: 600;
+}
+
+.login-form .input-group-text {
+  border-color: var(--color-line-strong);
+  border-radius: var(--radius) 0 0 var(--radius);
+  background: var(--color-warm);
+  color: var(--color-muted);
+}
+
+.login-form .form-check-input:checked {
+  background-color: var(--color-terracotta);
+  border-color: var(--color-terracotta);
+}
+
+
+/* Options (case à cocher)
+   ========================================================================== */
 
 .login-options {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    margin: 5px 0 20px;
-
-    font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: var(--space-1) 0 var(--space-4);
+  font-size: .875rem;
 }
 
 .login-options div {
-    display: flex;
-    align-items: center;
-    gap: 6px;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.login-options input[type="checkbox"] {
+  width: 1.15rem;
+  height: 1.15rem;
+  accent-color: var(--color-terracotta);
+}
+
+.login-options label {
+  margin: 0;
+}
+
+
+/* Bouton principal
+   ========================================================================== */
+
+.login-submit {
+  width: 100%;
+  min-height: 3rem;
+  border: 0;
+  border-radius: var(--radius);
+  background: var(--color-terracotta);
+  color: #fff;
+  font-size: .85rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color var(--ease);
+}
+
+.login-submit:hover {
+  background: var(--color-terracotta-dark);
+}
+
+
+/* Lien d'inscription
+   ========================================================================== */
+
+.login-register {
+  margin: var(--space-4) 0 0;
+  color: var(--color-muted);
+  font-size: .875rem;
+  text-align: center;
 }
 
 .login-options a,
 .login-register a {
-    color: #B84E23;
-    text-decoration: none;
-    font-weight: 600;
+  color: var(--color-terracotta);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .login-options a:hover,
 .login-register a:hover {
-    text-decoration: underline;
+  color: var(--color-terracotta-dark);
 }
 
-/* Bouton principal */
 
-.login-submit {
-    width: 100%;
-    height: 48px;
-
-    border: none;
-    border-radius: 10px;
-
-    background: #B84E23;
-    color: white;
-
-    font-weight: 600;
-    font-size: 15px;
-
-    cursor: pointer;
-
-    transition: 0.2s ease;
-}
-
-.login-submit:hover {
-    background: #96401D;
-}
-
-/* Inscription */
-
-.login-register {
-    margin: 18px 0;
-    text-align: center;
-
-    font-size: 14px;
-    color: #555;
-}
-
-/* Séparateur */
+/* Intertitre
+   Dans register.php, sépare « Informations générales » et « complémentaires ».
+   ========================================================================== */
 
 .login-separator {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-
-    color: #B84E23;
-    font-size: 13px;
-
-    margin: 20px 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin: var(--space-5) 0 var(--space-4);
+  color: var(--color-terracotta);
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
 }
 
-.login-separator::before,
 .login-separator::after {
-    content: "";
-    flex: 1;
-    height: 1px;
-    background: #B84E23;
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--color-sand);
 }
 
-/* Boutons sociaux */
+.modal-body > .login-separator:first-child {
+  margin-top: 0;
+}
+
+
+/* Connexion sociale
+   Actuellement commentée dans header.php et register.php : on garde un
+   style minimal pour le jour où elle sera réactivée.
+   ========================================================================== */
 
 .login-social {
-    display: flex;
-    gap: 12px;
+  display: flex;
+  gap: var(--space-3);
 }
 
 .social-btn {
-    flex: 1;
-
-    height: 45px;
-
-    border: 1px solid #B84E23;
-    border-radius: 9px;
-
-    background: white;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-
-    font-weight: 500;
-
-    cursor: pointer;
-
-    transition: 0.2s ease;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 2.75rem;
+  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius);
+  background: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color var(--ease);
 }
 
 .social-btn:hover {
-    background: #96401D;
+  border-color: var(--color-charcoal);
 }
 
-/* Mobile */
+@media (max-width: 575.98px) {
+  .login-social {
+    flex-direction: column;
+  }
+}
 
-@media (max-width: 576px) {
-
-    .modal-dialog {
-        margin: 12px;
-    }
-
-    .login-form {
-        padding: 20px 15px;
-    }
-
-    .login-social {
-        flex-direction: column;
-    }
+@media (prefers-reduced-motion: reduce) {
+  .login-input-group,
+  .login-submit,
+  .social-btn {
+    transition: none;
+  }
 }

@@ -1,46 +1,113 @@
-/* From Uiverse.io by alexruix */ 
-.group {
- display: flex;
- line-height: 28px;
- align-items: center;
- position: relative;
- min-width: 75vw;
+/* ==========================================================================
+   TAILOR PLATFORM - home_searchbar.css
+   Barres de recherche de garments : celle de l'accueil (.home-search)
+   et celle du catalogue (.catalogue-search).
+   Dépend des variables de style.css (à charger avant).
+   ========================================================================== */
+
+
+/* Accueil
+   La barre chevauche légèrement le bas du Hero pour s'intégrer à la composition.
+   ========================================================================== */
+
+.home-search-wrap {
+  position: relative;
+  z-index: 2;
+  width: min(100% - 2 * var(--gutter), 46rem);
+  margin-inline: auto;
+  margin-top: -1.75rem;
+  padding-block: 0;
 }
 
-.input {
- width: 100%;
- height: 40px;
- line-height: 28px;
- padding: 0 1rem;
- padding-left: 2.5rem;
- border: 2px solid transparent;
- border-radius: 8px;
- outline: none;
- background-color: #f3f3f4;
- color: #0d0c22;
- transition: .3s ease;
+.home-search {
+  display: flex;
+  align-items: stretch;
+  background: #fff;
+  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius);
+  transition: border-color var(--ease), box-shadow var(--ease);
 }
 
-.input::placeholder {
- color: #9e9ea7;
+.home-search:focus-within {
+  border-color: var(--color-terracotta);
+  box-shadow: 0 0 0 .2rem rgba(184, 78, 35, .15);
 }
 
-.input:focus, input:hover {
- outline: none;
- border-color: rgba(234,76,137,0.4);
- background-color: #fff;
- box-shadow: 0 0 0 4px rgb(234 76 137 / 10%);
+.home-search__input {
+  flex: 1;
+  min-width: 0;
+  min-height: 3.5rem;
+  padding: 0 var(--space-4);
+  border: 0;
+  border-radius: var(--radius) 0 0 var(--radius);
+  background: transparent;
+  color: var(--color-charcoal);
+  /* 16px : évite le zoom automatique à la saisie sur iPhone */
+  font-size: 1rem;
 }
 
-.icon {
- position: absolute;
- left: 1rem;
- fill: #9e9ea7;
- width: 1rem;
- height: 1rem;
+.home-search__input::placeholder {
+  color: var(--color-muted);
+  opacity: 1;
+}
+
+/* Le halo est porté par le conteneur (:focus-within) */
+.home-search__input:focus,
+.home-search__input:focus-visible {
+  outline: 0;
+}
+
+.home-search__button {
+  flex: 0 0 auto;
+  min-height: 3.5rem;
+  margin: -1px -1px -1px 0;
+  padding-inline: var(--space-5);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+
+@media (min-width: 768px) {
+  .home-search-wrap {
+    margin-top: -2rem;
+  }
+
+  .home-search__input {
+    padding-inline: var(--space-5);
+  }
+
+  .home-search__button {
+    padding-inline: 2rem;
+  }
 }
 
 
+/* Catalogue
+   Le champ garde les styles Bootstrap (.form-control) ; on ne gère ici
+   que la disposition. Sur mobile, le champ prend toute la largeur
+   et les boutons passent dessous.
+   ========================================================================== */
 
+.catalogue-search {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-5);
+}
 
+.catalogue-search .form-control {
+  flex: 1 1 100%;
+  min-width: 0;
+}
 
+.catalogue-search .btn {
+  flex: 1 1 auto;
+}
+
+@media (min-width: 576px) {
+  .catalogue-search .form-control {
+    flex: 1 1 16rem;
+  }
+
+  .catalogue-search .btn {
+    flex: 0 0 auto;
+  }
+}

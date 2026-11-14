@@ -1,53 +1,256 @@
-/*
-  Palette reprise du design fourni (Tailor_Design).
-  Polices : on utilise des polices systeme proches (serif / sans-serif)
-  pour que le site fonctionne sans connexion a Google Fonts.
-*/
+/* ==========================================================================
+   TAILOR PLATFORM - style.css
+   Feuille principale : fondations visuelles et composants communs.
+
+   Sommaire
+   1.  Variables
+   2.  Base (Bootstrap 5.3 : variables de thème, focus, titres)
+   3.  Mise en page (.page, sections, en-têtes de section)
+   4.  Navigation (en-tête, menu mobile, compte, panier)
+   5.  Boutons
+   6.  Formulaires et alertes
+   7.  Accueil : Hero
+   8.  Vêtements : grille et fiche courte
+   9.  Ateliers : grille et fiche courte
+   10. États vides
+   11. Pages simples (retour, confirmation, formulaire)
+   12. Pied de page
+   13. Accessibilité : mouvement réduit
+
+   Breakpoints (mobile d'abord) : 576px, 768px, 992px, 1200px.
+   Les autres feuilles (cart, article_detail, tailors...) réutilisent
+   les variables définies ici : style.css doit rester chargé en premier.
+   ========================================================================== */
+
+
+/* 1. Variables
+   ========================================================================== */
 
 :root {
+  /* Couleurs de marque */
   --color-cream: #FAF7F0;
+  --color-warm: #F2EDE5;
+  --color-sand: #E5DDD4;
+  --color-line-strong: #CFC3B5;
   --color-charcoal: #1C1410;
   --color-terracotta: #B84E23;
   --color-terracotta-dark: #96401D;
   --color-forest: #2D4A3E;
   --color-gold: #C9922A;
-  --color-warm: #F2EDE5;
-  --color-stone: #8B7B6B;
-  --color-sand: #E5DDD4;
+  --color-gold-soft: #E2B35E;
 
+  /* Texte secondaire : #8B7B6B n'atteignait pas le contraste AA sur la crème */
+  --color-muted: #6B5D4F;
+  --color-stone: var(--color-muted); /* alias conservé pour les anciennes feuilles */
+
+  /* Typographie (polices système : aucun chargement externe) */
   --font-serif: Georgia, "Times New Roman", serif;
-  --font-sans: "Segoe UI", Arial, sans-serif;
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+
+  /* Espacements */
+  --space-1: .25rem;
+  --space-2: .5rem;
+  --space-3: .75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2.5rem;
+  --space-7: 4rem;
+
+  /* Formes : angles quasi droits, comme une planche de tissu */
+  --radius: 2px;
+
+  /* Mise en page */
+  --container-max: 1180px;
+  --container-narrow: 760px;
+  --gutter: 1rem;
+
+  /* Mouvement */
+  --ease: .2s ease;
+
+  /* Thème Bootstrap : on règle ses variables plutôt que de réécrire ses classes */
+  --bs-body-bg: var(--color-cream);
+  --bs-body-color: var(--color-charcoal);
+  --bs-body-font-family: var(--font-sans);
+  --bs-border-color: var(--color-sand);
+  --bs-link-color-rgb: 184, 78, 35;
+  --bs-link-hover-color-rgb: 150, 64, 29;
 }
 
-body {
-  background-color: var(--color-cream);
-  color: var(--color-charcoal);
-  font-family: var(--font-sans);
+
+/* 2. Base
+   ========================================================================== */
+
+/* Priorité nulle (:where) pour ne pas gêner Bootstrap ni les composants */
+:where(h1, h2, h3) {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  letter-spacing: -.01em;
 }
 
-section {
-	padding: 20px 10%;
+:where(a, button, input, select, textarea, summary):focus-visible {
+  outline: 2px solid var(--color-terracotta);
+  outline-offset: 2px;
 }
 
-a {
+/* Bootstrap dessine déjà un halo sur les champs : pas de double contour */
+.form-control:focus-visible,
+.form-select:focus-visible {
+  outline: 0;
+}
+
+.skip-link {
+  position: absolute;
+  top: -4rem;
+  left: var(--space-2);
+  z-index: 2000;
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-charcoal);
+  color: var(--color-cream);
+  text-decoration: none;
+  font-weight: 600;
+  transition: top var(--ease);
+}
+
+.skip-link:focus {
+  top: var(--space-2);
+  color: var(--color-cream);
+}
+
+
+/* 3. Mise en page
+   ========================================================================== */
+
+.page {
+  width: min(100% - 2 * var(--gutter), var(--container-max));
+  margin-inline: auto;
+  padding-block: clamp(1.5rem, 4vw, 3rem);
+}
+
+.page--narrow {
+  width: min(100% - 2 * var(--gutter), var(--container-narrow));
+}
+
+/* Rythme vertical des blocs de l'accueil */
+.page-section {
+  padding-block: clamp(2rem, 6vw, 4.5rem) 0;
+}
+
+.page-title {
+  margin: 0 0 var(--space-4);
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -.02em;
+}
+
+.page-title__count {
+  color: var(--color-muted);
+  font-size: .55em;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+.page-lead {
+  max-width: 38rem;
+  margin: 0 0 var(--space-5);
+  color: var(--color-muted);
+  line-height: 1.7;
+}
+
+.eyebrow {
+  margin: 0 0 var(--space-2);
   color: var(--color-terracotta);
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
 }
 
-/* En-tete */
+/* En-tête de section : titre à gauche, lien ou compteur à droite, filet dessous.
+   Le sélecteur composé garantit que ce titre prime sur d'éventuels
+   .section-title issus d'anciennes feuilles. */
+.section-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-4);
+  margin-bottom: var(--space-5);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--color-sand);
+}
+
+.section-head .section-title,
+.section-head .page-title {
+  margin: 0;
+}
+
+.section-head .section-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.6rem, 3.2vw, 2.3rem);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -.015em;
+  color: var(--color-charcoal);
+}
+
+.section-head__link,
+.section-head__count {
+  margin: 0;
+  font-size: .875rem;
+}
+
+.section-head__link {
+  color: var(--color-charcoal);
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid var(--color-gold);
+  padding-bottom: 1px;
+  transition: color var(--ease), border-color var(--ease);
+}
+
+.section-head__link:hover {
+  color: var(--color-terracotta);
+  border-color: var(--color-terracotta);
+}
+
+.section-head__count {
+  color: var(--color-muted);
+}
+
+
+/* 4. Navigation
+   ========================================================================== */
 
 .site-header {
   background-color: var(--color-cream);
   border-bottom: 1px solid var(--color-sand);
 }
 
+.site-header .navbar {
+  --bs-navbar-padding-y: .75rem;
+  --bs-navbar-color: var(--color-charcoal);
+  --bs-navbar-hover-color: var(--color-terracotta);
+  --bs-navbar-active-color: var(--color-charcoal);
+  --bs-navbar-nav-link-padding-x: 0;
+}
+
 .navbar-brand {
   display: flex;
   align-items: center;
   gap: .6rem;
+  margin-right: var(--space-5);
   font-family: var(--font-serif);
+  font-size: 1.3rem;
   font-weight: 600;
-  font-size: 1.25rem;
-  color: var(--color-charcoal) !important;
+  letter-spacing: -.01em;
+  color: var(--color-charcoal);
+}
+
+.navbar-brand:hover,
+.navbar-brand:focus {
+  color: var(--color-charcoal);
 }
 
 .brand-logo {
@@ -59,166 +262,711 @@ a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  font-family: var(--font-serif);
   font-weight: 700;
-  font-size: .9rem;
+  font-size: .95rem;
+}
+
+/* Panier, compte et bouton de menu restent visibles à toutes les largeurs */
+.site-nav__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.site-nav__actions .btn {
+  --bs-btn-padding-x: .75rem;
+  --bs-btn-padding-y: .4rem;
+  --bs-btn-font-size: .875rem;
+  min-height: 2.5rem;
 }
 
 .btn-outline-cart {
-  border: 1px solid var(--color-sand);
-  color: var(--color-charcoal);
-  background-color: #fff;
-}
-
-.btn-outline-cart:hover {
-  border-color: var(--color-terracotta);
-  color: var(--color-terracotta);
+  --bs-btn-color: var(--color-charcoal);
+  --bs-btn-bg: #fff;
+  --bs-btn-border-color: var(--color-line-strong);
+  --bs-btn-hover-color: var(--color-terracotta);
+  --bs-btn-hover-bg: #fff;
+  --bs-btn-hover-border-color: var(--color-terracotta);
+  --bs-btn-active-color: var(--color-terracotta);
+  --bs-btn-active-bg: #fff;
+  --bs-btn-active-border-color: var(--color-terracotta);
 }
 
 .badge-cart {
   position: absolute;
-  top: -6px;
-  right: -6px;
+  top: -7px;
+  right: -7px;
+  min-width: 1.2rem;
+  height: 1.2rem;
+  padding: 0 .25rem;
+  border-radius: 999px;
   background-color: var(--color-terracotta);
   color: #fff;
-  border-radius: 50%;
-  width: 1.15rem;
-  height: 1.15rem;
-  font-size: .65rem;
+  font-size: .68rem;
+  font-weight: 700;
+  line-height: 1;
   display: inline-flex;
   align-items: center;
   justify-content: center;
 }
 
-/* Titres */
-
-.page-title {
-  font-family: var(--font-serif);
-  font-weight: 600;
+.site-nav__account {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.5rem;
+  min-height: 2.5rem;
+  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius);
+  background: #fff;
+  transition: border-color var(--ease);
 }
 
-.section-title {
-  font-family: var(--font-serif);
-  font-size: 1.25rem;
-  font-weight: 600;
-}
-
-/* Boutons */
-
-.btn-primary {
-  background-color: var(--color-terracotta);
+.site-nav__account:hover {
   border-color: var(--color-terracotta);
 }
 
-.btn-primary:hover,
-.btn-primary:focus {
-  background-color: var(--color-terracotta-dark);
-  border-color: var(--color-terracotta-dark);
+.site-nav__account img {
+  display: block;
+  width: auto;
+  height: 1.5rem;
+}
+
+.site-header .navbar-toggler {
+  --bs-navbar-toggler-border-color: var(--color-line-strong);
+  --bs-navbar-toggler-focus-width: .2rem;
+  min-width: 2.5rem;
+  min-height: 2.5rem;
+  padding: .25rem .5rem;
+  border-radius: var(--radius);
+  background: #fff;
+}
+
+.site-header .dropdown-menu {
+  --bs-dropdown-border-color: var(--color-sand);
+  --bs-dropdown-border-radius: var(--radius);
+  --bs-dropdown-link-hover-bg: var(--color-warm);
+  --bs-dropdown-link-active-bg: var(--color-terracotta);
+  --bs-dropdown-min-width: 14rem;
+  --bs-dropdown-padding-y: .5rem;
+  margin-top: var(--space-2);
+}
+
+/* Liens du menu : sobres, soulignés à l'état actif */
+.site-nav__links .nav-link {
+  padding-block: var(--space-3);
+  font-size: .8125rem;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  border-bottom: 2px solid transparent;
+}
+
+.site-nav__links .nav-link.active {
+  border-bottom-color: var(--color-terracotta);
+}
+
+/* Menu mobile ouvert : liens séparés par un filet */
+@media (max-width: 991.98px) {
+  .site-header .navbar-collapse {
+    flex-basis: 100%;
+    margin-top: var(--space-3);
+    border-top: 1px solid var(--color-sand);
+  }
+
+  .site-nav__links .nav-link {
+    border-bottom: 1px solid var(--color-sand);
+  }
+
+  .site-nav__links .nav-link.active {
+    color: var(--color-terracotta);
+  }
+}
+
+@media (min-width: 992px) {
+  .site-nav__links {
+    gap: var(--space-5);
+  }
+
+  .site-nav__links .nav-link {
+    padding-block: var(--space-2);
+  }
+}
+
+
+/* 5. Boutons
+   Bootstrap 5.3 pilote ses boutons avec des variables --bs-btn-* : on les
+   règle ici au lieu de réécrire les propriétés des classes natives.
+   ========================================================================== */
+
+.btn {
+  --bs-btn-border-radius: var(--radius);
+  --bs-btn-font-weight: 600;
+  --bs-btn-padding-y: .6rem;
+  --bs-btn-padding-x: 1.25rem;
+  letter-spacing: .02em;
+  min-height: 2.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-lg {
+  --bs-btn-padding-y: .8rem;
+  --bs-btn-padding-x: 1.75rem;
+  --bs-btn-font-size: .95rem;
+  --bs-btn-border-radius: var(--radius);
+  min-height: 3.25rem;
+}
+
+.btn-sm {
+  --bs-btn-padding-y: .35rem;
+  --bs-btn-padding-x: .8rem;
+  min-height: 2.25rem;
+}
+
+.btn-primary {
+  --bs-btn-bg: var(--color-terracotta);
+  --bs-btn-border-color: var(--color-terracotta);
+  --bs-btn-hover-bg: var(--color-terracotta-dark);
+  --bs-btn-hover-border-color: var(--color-terracotta-dark);
+  --bs-btn-active-bg: var(--color-terracotta-dark);
+  --bs-btn-active-border-color: var(--color-terracotta-dark);
+  --bs-btn-focus-shadow-rgb: 184, 78, 35;
+  --bs-btn-disabled-bg: var(--color-terracotta);
+  --bs-btn-disabled-border-color: var(--color-terracotta);
 }
 
 .btn-outline-primary {
-  color: var(--color-terracotta);
-  border-color: var(--color-terracotta);
+  --bs-btn-color: var(--color-terracotta);
+  --bs-btn-border-color: var(--color-terracotta);
+  --bs-btn-hover-bg: var(--color-terracotta);
+  --bs-btn-hover-border-color: var(--color-terracotta);
+  --bs-btn-active-bg: var(--color-terracotta-dark);
+  --bs-btn-active-border-color: var(--color-terracotta-dark);
+  --bs-btn-focus-shadow-rgb: 184, 78, 35;
 }
 
-.btn-outline-primary:hover {
-  background-color: var(--color-terracotta);
-  border-color: var(--color-terracotta);
-  color: #fff;
+.btn-outline-dark {
+  --bs-btn-color: var(--color-charcoal);
+  --bs-btn-border-color: var(--color-charcoal);
+  --bs-btn-hover-bg: var(--color-charcoal);
+  --bs-btn-hover-border-color: var(--color-charcoal);
+  --bs-btn-hover-color: var(--color-cream);
+  --bs-btn-active-bg: var(--color-charcoal);
+  --bs-btn-active-border-color: var(--color-charcoal);
 }
 
-/* Cartes de modeles */
-
-.model-card {
-  border: 1px solid var(--color-sand);
-  background-color: #fff;
-  transition: box-shadow .15s ease-in-out;
+.btn-outline-secondary {
+  --bs-btn-color: #4F443A;
+  --bs-btn-border-color: var(--color-line-strong);
+  --bs-btn-hover-bg: var(--color-charcoal);
+  --bs-btn-hover-border-color: var(--color-charcoal);
+  --bs-btn-hover-color: var(--color-cream);
+  --bs-btn-active-bg: var(--color-charcoal);
+  --bs-btn-active-border-color: var(--color-charcoal);
 }
 
-.model-card:hover {
-  box-shadow: 0 .5rem 1rem rgba(28, 20, 16, .08);
-}
 
-.price {
-  color: var(--color-forest);
+/* 6. Formulaires et alertes
+   ========================================================================== */
+
+.form-label {
+  margin-bottom: var(--space-2);
+  color: var(--color-charcoal);
+  font-size: .875rem;
   font-weight: 600;
 }
 
-/* Cartes generiques (profil, detail, formulaire, confirmation) */
+.form-optional {
+  color: var(--color-muted);
+  font-weight: 400;
+}
 
-.tailor-card,
-.detail-card,
-.form-card,
-.confirmation-card {
+.form-control,
+.form-select {
+  min-height: 2.75rem;
+  border-color: var(--color-line-strong);
+  border-radius: var(--radius);
   background-color: #fff;
-  border: 1px solid var(--color-sand);
-  border-radius: .5rem;
-  padding: 1.5rem;
+  /* 16px : évite le zoom automatique à la saisie sur iPhone */
+  font-size: 1rem;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--color-terracotta);
+  box-shadow: 0 0 0 .2rem rgba(184, 78, 35, .15);
+}
+
+.form-text {
+  color: var(--color-muted);
+}
+
+.form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
 }
 
 .form-card {
-  max-width: 32rem;
+  max-width: 36rem;
+  padding: clamp(1.25rem, 4vw, 2rem);
+  background-color: #fff;
+  border: 1px solid var(--color-sand);
+  border-radius: var(--radius);
 }
 
-.total-row {
-  border-top: 1px solid var(--color-sand);
-  padding-top: 1rem;
+.alert {
+  --bs-alert-border-radius: var(--radius);
+  border-left-width: 3px;
 }
 
-.confirmation-card {
-  max-width: 28rem;
-  margin: 2rem auto;
-}
 
-.confirmation-icon {
-  width: 3.5rem;
-  height: 3.5rem;
-  border-radius: 50%;
-  background-color: var(--color-forest);
-  color: #fff;
-  font-size: 1.75rem;
+/* 7. Accueil : Hero
+   Le fond est un mur de tissus wax très saturé : une couche sombre unie
+   (sans dégradé) garantit la lisibilité du texte.
+   ========================================================================== */
+
+.hero {
+  position: relative;
   display: flex;
   align-items: center;
-  justify-content: center;
-  margin: 0 auto 1rem;
+  min-height: clamp(26rem, 68vh, 40rem);
+  padding-block: clamp(3rem, 8vw, 6rem);
+  background: var(--color-charcoal) center / cover no-repeat url("../images/home_hero.jpg");
+  color: var(--color-cream);
 }
 
-/* Accueil */
-
-.home-hero {
-  padding: 4rem 1rem;
-  background: center/cover no-repeat url('../images/home_hero.jpg');
-  background-color: rgba(255, 0, 0, 0.6);
-  min-height: 70vh;
-  
-}
-
-/* effet moins opaque du fond */
-.home-hero::before{
+.hero::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(28, 20, 16, .74);
 }
-.hero-content{
+
+.hero__inner {
   position: relative;
-  z-index: 1;
-  color: white;
+  width: min(100% - 2 * var(--gutter), var(--container-max));
+  margin-inline: auto;
 }
-/* Divers */
+
+.hero .eyebrow {
+  display: inline-block;
+  margin-bottom: var(--space-4);
+  padding-top: var(--space-3);
+  border-top: 2px solid var(--color-gold);
+  color: var(--color-gold-soft);
+}
+
+.hero__title {
+  max-width: 14ch;
+  margin: 0 0 var(--space-4);
+  font-size: clamp(2.7rem, 8vw, 5.4rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -.025em;
+}
+
+.hero__title span {
+  display: block;
+  color: var(--color-gold-soft);
+  font-style: italic;
+}
+
+.hero__text {
+  max-width: 34rem;
+  margin: 0 0 var(--space-5);
+  color: rgba(250, 247, 240, .9);
+  font-size: clamp(1rem, 2.2vw, 1.15rem);
+  line-height: 1.7;
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+/* Bouton secondaire du Hero : contour crème sur fond sombre */
+.hero .btn-light {
+  --bs-btn-color: var(--color-cream);
+  --bs-btn-bg: transparent;
+  --bs-btn-border-color: rgba(250, 247, 240, .75);
+  --bs-btn-hover-color: var(--color-charcoal);
+  --bs-btn-hover-bg: var(--color-cream);
+  --bs-btn-hover-border-color: var(--color-cream);
+  --bs-btn-active-color: var(--color-charcoal);
+  --bs-btn-active-bg: var(--color-cream);
+  --bs-btn-active-border-color: var(--color-cream);
+}
+
+@media (max-width: 575.98px) {
+  .hero__actions .btn {
+    flex: 1 1 100%;
+  }
+}
+
+
+/* 8. Vêtements : grille et fiche courte
+   Pas de boîte autour des vêtements : la photo est la vedette, le texte
+   se pose directement sur le fond de la page.
+   ========================================================================== */
+
+.garment-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-5) var(--space-3);
+}
+
+.garment-card {
+  min-width: 0;
+}
+
+.garment-card__media {
+  display: block;
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  background: var(--color-warm);
+}
+
+/* Recadrage par le haut : les robes et vestes gardent leur col et leurs broderies */
+.garment-card__media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  transition: transform .5s ease;
+}
+
+.garment-card:hover .garment-card__media img {
+  transform: scale(1.03);
+}
+
+.garment-card__body {
+  padding-top: var(--space-3);
+}
+
+.garment-card__tailor {
+  margin: 0 0 var(--space-1);
+  color: var(--color-muted);
+  font-size: .75rem;
+  letter-spacing: .04em;
+}
+
+.garment-card__title {
+  margin: 0 0 var(--space-1);
+  font-size: 1.05rem;
+  line-height: 1.25;
+}
+
+.garment-card__title a {
+  color: var(--color-charcoal);
+  text-decoration: none;
+  transition: color var(--ease);
+}
+
+.garment-card__title a:hover {
+  color: var(--color-terracotta);
+}
+
+.garment-card__text {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  margin: 0 0 var(--space-2);
+  color: var(--color-muted);
+  font-size: .875rem;
+  line-height: 1.55;
+}
+
+.garment-card__price {
+  margin: 0;
+  color: var(--color-forest);
+  font-size: .95rem;
+  font-weight: 700;
+}
+
+@media (min-width: 768px) {
+  .garment-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-6) var(--space-5);
+  }
+
+  .garment-card__title {
+    font-size: 1.15rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .garment-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  /* Rythme éditorial sur l'accueil : une colonne sur deux est décalée vers le bas.
+     Purement décoratif : supprimer ce bloc rend une grille régulière. */
+  .page-section .garment-grid > .garment-card:nth-child(4n + 2),
+  .page-section .garment-grid > .garment-card:nth-child(4n + 4) {
+    margin-top: var(--space-6);
+  }
+}
+
+
+/* 9. Ateliers : grille et fiche courte
+   Volontairement différents des vêtements : cadre carré, texte posé sur
+   un fond chaud, petit filet doré au-dessus du nom.
+   ========================================================================== */
+
+.atelier-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-3);
+}
+
+.atelier-card {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-warm);
+  border: 1px solid var(--color-sand);
+}
+
+.atelier-card__media {
+  display: block;
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+  background: var(--color-sand);
+}
+
+/* Les avatars sont de formats très variés (logo, capture, portrait) :
+   on cadre au centre, et le haut pour les portraits */
+.atelier-card__media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 25%;
+  transition: transform .5s ease;
+}
+
+.atelier-card:hover .atelier-card__media img {
+  transform: scale(1.03);
+}
+
+.atelier-card__body {
+  flex: 1;
+  padding: var(--space-4);
+}
+
+.atelier-card__body::before {
+  content: "";
+  display: block;
+  width: 2rem;
+  height: 2px;
+  margin-bottom: var(--space-3);
+  background: var(--color-gold);
+}
+
+.atelier-card__name {
+  margin: 0 0 var(--space-1);
+  font-size: 1.1rem;
+  line-height: 1.2;
+}
+
+.atelier-card__name a {
+  color: var(--color-charcoal);
+  text-decoration: none;
+}
+
+.atelier-card__name a:hover {
+  color: var(--color-terracotta);
+}
+
+.atelier-card__place {
+  margin: 0 0 var(--space-2);
+  color: var(--color-terracotta);
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.atelier-card__text {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  margin: 0;
+  color: var(--color-muted);
+  font-size: .875rem;
+  line-height: 1.55;
+}
+
+@media (min-width: 768px) {
+  .atelier-grid {
+    gap: var(--space-5);
+  }
+
+  .atelier-card__body {
+    padding: var(--space-5);
+  }
+
+  .atelier-card__name {
+    font-size: 1.3rem;
+  }
+}
+
+@media (min-width: 992px) {
+  .atelier-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+
+/* 10. États vides
+   ========================================================================== */
+
+.empty-state {
+  padding: clamp(2rem, 6vw, 4rem) var(--space-4);
+  border: 1px dashed var(--color-line-strong);
+  text-align: center;
+}
+
+.empty-state p {
+  max-width: 30rem;
+  margin: 0 auto var(--space-4);
+  color: var(--color-muted);
+}
+
+.empty-state p:last-child {
+  margin-bottom: 0;
+}
+
+.empty-note {
+  margin: 0;
+  color: var(--color-muted);
+}
+
+
+/* 11. Pages simples
+   ========================================================================== */
 
 .back-link {
-  color: var(--color-stone);
+  display: inline-block;
+  margin-bottom: var(--space-4);
+  color: var(--color-muted);
+  font-size: .875rem;
   text-decoration: none;
+  transition: color var(--ease);
 }
 
 .back-link:hover {
   color: var(--color-terracotta);
 }
 
+.price {
+  color: var(--color-forest);
+  font-weight: 700;
+}
+
+.confirmation-card {
+  max-width: 28rem;
+  margin: var(--space-6) auto;
+  padding: clamp(1.5rem, 5vw, 2.5rem);
+  background-color: #fff;
+  border: 1px solid var(--color-sand);
+  border-radius: var(--radius);
+}
+
+.confirmation-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  margin: 0 auto var(--space-4);
+  border-radius: 50%;
+  background-color: var(--color-forest);
+  color: #fff;
+  font-size: 1.75rem;
+}
+
+
+/* 12. Pied de page
+   ========================================================================== */
+
 .site-footer {
-  border-top: 1px solid var(--color-sand);
-  color: var(--color-stone);
-  padding: 1.5rem 0;
-  margin-top: 3rem;
+  margin-top: var(--space-7);
+  padding: var(--space-6) 0;
+  background: var(--color-charcoal);
+  color: rgba(250, 247, 240, .72);
   font-size: .875rem;
+}
+
+.site-footer__inner {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.site-footer__brand {
+  margin: 0;
+  color: var(--color-cream);
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+}
+
+.site-footer__text {
+  margin: 0;
+}
+
+.site-footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-5);
+}
+
+.site-footer__links a {
+  color: var(--color-cream);
+  text-decoration: none;
+  border-bottom: 1px solid var(--color-gold);
+  padding-bottom: 1px;
+}
+
+.site-footer__links a:hover {
+  color: var(--color-gold-soft);
+}
+
+@media (min-width: 768px) {
+  .site-footer__inner {
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    column-gap: var(--space-6);
+    row-gap: var(--space-1);
+  }
+
+  .site-footer__links {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+  }
+}
+
+
+/* 13. Accessibilité : mouvement réduit
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .garment-card__media img,
+  .atelier-card__media img,
+  .skip-link,
+  .btn {
+    transition: none;
+  }
+
+  .garment-card:hover .garment-card__media img,
+  .atelier-card:hover .atelier-card__media img {
+    transform: none;
+  }
 }

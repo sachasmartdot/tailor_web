@@ -1,69 +1,179 @@
-.cart-page {
-    background: #f8f5f0;
-    min-height: 100vh;
-    padding: 50px 0;
-}
+/* ==========================================================================
+   TAILOR PLATFORM - cart.css
+   Panier : liste des vêtements, total, formulaire de paiement.
+   Dépend des variables de style.css (à charger avant).
+   Les valeurs HTML et le fonctionnement des boutons de paiement ne sont
+   pas touchés : seuls leur aspect et leur disposition changent.
+   ========================================================================== */
 
-.cart-wrapper {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
 
-.cart-title {
-    font-family: Georgia, serif;
-    font-size: 38px;
-    color: #292522;
-    margin-bottom: 30px;
+/* Liste des vêtements
+   Lignes séparées par un filet, sans boîtes : la photo et le texte
+   se lisent comme une facture de couture.
+   ========================================================================== */
+
+.cart-list {
+  border-top: 1px solid var(--color-sand);
 }
 
 .cart-item {
-    background: #fff;
-    border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 15px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+  display: grid;
+  grid-template-columns: 5.5rem minmax(0, 1fr);
+  gap: var(--space-2) var(--space-4);
+  padding-block: var(--space-4);
+  border-bottom: 1px solid var(--color-sand);
+}
+
+.cart-item__media {
+  grid-row: span 2;
+  align-self: start;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: var(--color-warm);
 }
 
 .cart-item-image {
-    width: 100px;
-    height: 120px;
-    object-fit: cover;
-    border-radius: 8px;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.cart-item__info {
+  min-width: 0;
 }
 
 .cart-item-title {
-    font-size: 18px;
-    font-weight: 700;
-    color: #292522;
-}
-
-.cart-item-price {
-    color: #b65f45;
-    font-weight: 700;
+  margin-bottom: var(--space-1);
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1.25;
 }
 
 .cart-item-details {
-    color: #777;
-    font-size: 14px;
-    margin-top: 8px;
+  color: var(--color-muted);
+  font-size: .875rem;
+  line-height: 1.6;
+  /* L'équivalence de taille peut être longue : elle passe à la ligne */
+  overflow-wrap: anywhere;
 }
 
-.cart-summary {
-    background: #fff;
-    border-radius: 12px;
-    padding: 25px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+.cart-item-details strong {
+  color: var(--color-charcoal);
+  font-weight: 600;
 }
 
-.cart-summary-title {
-    font-size: 20px;
-    font-weight: 700;
-    margin-bottom: 20px;
+.cart-item-price {
+  align-self: end;
+  color: var(--color-forest);
+  font-weight: 700;
+  white-space: nowrap;
 }
 
-.cart-total {
-    font-size: 25px;
-    font-weight: 700;
-    color: #b65f45;
+@media (min-width: 576px) {
+  .cart-item {
+    grid-template-columns: 6.5rem minmax(0, 1fr) auto;
+    align-items: start;
+    padding-block: var(--space-5);
+  }
+
+  .cart-item__media {
+    grid-row: auto;
+  }
+
+  .cart-item-price {
+    align-self: start;
+    font-size: 1.05rem;
+  }
+}
+
+
+/* Total
+   ========================================================================== */
+
+.total-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding-block: var(--space-5);
+  border-bottom: 2px solid var(--color-charcoal);
+}
+
+.total-row__label {
+  font-size: .8rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.total-row__amount {
+  color: var(--color-forest);
+  font-family: var(--font-serif);
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-weight: 600;
+}
+
+
+/* Paiement
+   ========================================================================== */
+
+.checkout-form {
+  margin-top: var(--space-6);
+  padding: clamp(1.25rem, 4vw, 2rem);
+  background: #fff;
+  border: 1px solid var(--color-sand);
+}
+
+.checkout-form__phone {
+  max-width: 22rem;
+  font-size: 1.125rem;
+  letter-spacing: .04em;
+}
+
+/* Un bouton par ligne sur mobile, côte à côte dès 576px */
+.checkout-form__buttons {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.checkout-form__buttons .btn {
+  min-height: 3.25rem;
+  font-size: .95rem;
+}
+
+@media (min-width: 576px) {
+  .checkout-form__buttons {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Couleurs d'opérateur : texte foncé sur les deux fonds pour garder
+   un contraste suffisant (le blanc sur l'orange ne l'atteint pas) */
+.btn-momo {
+  --bs-btn-color: var(--color-charcoal);
+  --bs-btn-bg: #FFCC00;
+  --bs-btn-border-color: #FFCC00;
+  --bs-btn-hover-color: var(--color-charcoal);
+  --bs-btn-hover-bg: #F2C200;
+  --bs-btn-hover-border-color: #F2C200;
+  --bs-btn-active-color: var(--color-charcoal);
+  --bs-btn-active-bg: #E6B800;
+  --bs-btn-active-border-color: #E6B800;
+  --bs-btn-focus-shadow-rgb: 255, 204, 0;
+}
+
+.btn-orange {
+  --bs-btn-color: var(--color-charcoal);
+  --bs-btn-bg: #FF7900;
+  --bs-btn-border-color: #FF7900;
+  --bs-btn-hover-color: var(--color-charcoal);
+  --bs-btn-hover-bg: #E86E00;
+  --bs-btn-hover-border-color: #E86E00;
+  --bs-btn-active-color: var(--color-charcoal);
+  --bs-btn-active-bg: #D96600;
+  --bs-btn-active-border-color: #D96600;
+  --bs-btn-focus-shadow-rgb: 255, 121, 0;
 }

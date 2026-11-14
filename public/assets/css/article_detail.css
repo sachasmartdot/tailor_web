@@ -1,187 +1,338 @@
+/* ==========================================================================
+   TAILOR PLATFORM - article_detail.css
+   Page de détail et de configuration d'un vêtement : photo, texte, couleur,
+   taille, référentiel international, équivalence, note du tailleur, ajout
+   au panier. Dépend des variables de style.css (à charger avant).
+   ========================================================================== */
+
 .article-detail-page {
-    background: #f8f5f0;
-    min-height: 100vh;
+  padding-bottom: var(--space-4);
 }
 
 .article-detail-wrapper {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 50px 20px;
+  width: min(100% - 2 * var(--gutter), var(--container-max));
+  margin-inline: auto;
+  padding-block: clamp(1.25rem, 3vw, 2.5rem) 0;
 }
 
+/* Une seule boîte fine pour tout le produit, sans ombre ni arrondi */
 .article-detail-card {
-    background: #fff;
-    border-radius: 18px;
-    overflow: hidden;
-    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid var(--color-sand);
 }
+
+
+/* Photo
+   Le vêtement est montré en entier (contain) : on configure une pièce,
+   il ne faut pas la couper. Le fond chaud comble les bandes libres.
+   ========================================================================== */
 
 .article-detail-image {
-    width: 100%;
-    height: auto;
-    max-height: 80vh;
-    object-fit: contain;      /* l'image est affichée en entier, sans être coupée */
-    background: #f3eee8;      /* remplit les bandes libres autour de l'image */
-    display: block;
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  max-height: 75vh;
+  object-fit: contain;
+  background: var(--color-warm);
 }
 
+.article-detail-image--empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-muted);
+  font-size: .9rem;
+}
+
+@media (min-width: 576px) and (max-width: 991.98px) {
+  .article-detail-image {
+    aspect-ratio: 3 / 2;
+    max-height: 32rem;
+  }
+}
+
+@media (min-width: 992px) {
+  .article-detail-image {
+    max-height: none;
+  }
+
+  /* La photo reste visible pendant qu'on choisit couleur et taille */
+  .article-detail-card .row > .col-lg-6:first-child {
+    position: sticky;
+    top: var(--space-4);
+    align-self: flex-start;
+  }
+}
+
+
+/* Texte
+   ========================================================================== */
+
 .article-detail-content {
-    padding: 45px;
+  padding: clamp(1.25rem, 5vw, 1.75rem);
+}
+
+@media (min-width: 992px) {
+  .article-detail-content {
+    padding: var(--space-6);
+  }
 }
 
 .article-detail-label {
-    color: #b65f45;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    margin-bottom: 10px;
+  margin: 0 0 var(--space-2);
+  color: var(--color-terracotta);
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
 }
 
 .article-detail-title {
-    font-family: Georgia, serif;
-    font-size: 42px;
-    color: #292522;
-    margin-bottom: 15px;
+  margin: 0 0 var(--space-2);
+  font-family: var(--font-serif);
+  font-size: clamp(1.9rem, 4.5vw, 2.9rem);
+  font-weight: 500;
+  line-height: 1.08;
+  letter-spacing: -.02em;
+}
+
+.article-detail-tailor {
+  margin: 0 0 var(--space-4);
+  color: var(--color-muted);
+  font-size: .9rem;
+}
+
+.article-detail-tailor a {
+  color: var(--color-charcoal);
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid var(--color-gold);
+}
+
+.article-detail-tailor a:hover {
+  color: var(--color-terracotta);
+  border-color: var(--color-terracotta);
 }
 
 .article-detail-description {
-    color: #777;
-    line-height: 1.7;
-    margin-bottom: 25px;
+  margin: 0 0 var(--space-4);
+  color: var(--color-muted);
+  line-height: 1.75;
 }
 
 .article-detail-price {
-    font-size: 28px;
-    font-weight: 700;
-    color: #b65f45;
-    margin-bottom: 35px;
+  margin: 0 0 var(--space-5);
+  color: var(--color-forest);
+  font-family: var(--font-serif);
+  font-size: clamp(1.5rem, 3.5vw, 1.9rem);
+  font-weight: 600;
 }
 
-/* Personnalisation */
+
+/* Personnalisation
+   ========================================================================== */
 
 .customization-section {
-    margin-top: 30px;
+  padding-top: var(--space-4);
+  margin-bottom: var(--space-4);
+  border-top: 1px solid var(--color-sand);
 }
 
 .customization-title {
-    font-size: 14px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: #292522;
-    margin-bottom: 14px;
+  margin-bottom: var(--space-3);
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
 }
 
+.customization-hint {
+  margin: 0 0 var(--space-3);
+  color: var(--color-muted);
+  font-size: .8125rem;
+  line-height: 1.55;
+}
+
+/* Les vrais boutons radio restent dans le DOM (clavier, lecteurs d'écran) :
+   on les cache visuellement et on style le <span> voisin. */
+.color-option input,
+.size-option input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.color-option,
+.size-option {
+  position: relative;
+  margin: 0;
+}
+
+
+/* Couleurs : pastilles de 44px, bague nette sur la couleur choisie */
 .color-options {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-    margin-bottom: 30px;
-}
-
-.color-option {
-    position: relative;
-}
-
-.color-option input {
-    position: absolute;
-    opacity: 0;
-    pointer-events: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
 }
 
 .color-swatch {
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    border: 2px solid #ddd;
-    display: block;
-    cursor: pointer;
-    transition: 0.2s ease;
+  display: block;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid var(--color-line-strong);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform var(--ease), box-shadow var(--ease);
+}
+
+.color-option:hover .color-swatch {
+  transform: scale(1.06);
 }
 
 .color-option input:checked + .color-swatch {
-    outline: 3px solid #b65f45;
-    outline-offset: 3px;
+  box-shadow: 0 0 0 3px #fff, 0 0 0 5px var(--color-charcoal);
 }
 
-/* Tailles */
+.color-option input:focus-visible + .color-swatch {
+  outline: 2px solid var(--color-terracotta);
+  outline-offset: 4px;
+}
 
+
+/* Tailles et référentiels */
 .size-options {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-bottom: 35px;
-}
-
-.size-option {
-    position: relative;
-}
-
-.size-option input {
-    position: absolute;
-    opacity: 0;
-    pointer-events: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
 }
 
 .size-button {
-    min-width: 55px;
-    padding: 11px 17px;
-    border: 1px solid #d9d0c5;
-    background: #fff;
-    color: #292522;
-    border-radius: 4px;
-    text-align: center;
-    cursor: pointer;
-    font-weight: 600;
-    transition: 0.2s ease;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 3rem;
+  min-height: 2.75rem;
+  padding: var(--space-2) var(--space-3);
+  background: #fff;
+  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius);
+  color: var(--color-charcoal);
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color var(--ease), border-color var(--ease), color var(--ease);
 }
 
-.size-option input:checked + .size-button {
-    background: #b65f45;
-    border-color: #b65f45;
-    color: #fff;
+.size-option:hover .size-button {
+  border-color: var(--color-charcoal);
 }
+
+/* Sélection évidente : aplat charcoal, texte crème */
+.size-option input:checked + .size-button {
+  background: var(--color-charcoal);
+  border-color: var(--color-charcoal);
+  color: var(--color-cream);
+}
+
+.size-option input:focus-visible + .size-button {
+  outline: 2px solid var(--color-terracotta);
+  outline-offset: 2px;
+}
+
+/* Référentiels : le code (FR, EU...) au-dessus de son nom court */
+.reference-options .size-button {
+  min-width: 4.25rem;
+}
+
+.size-button small {
+  display: block;
+  font-size: .68rem;
+  font-weight: 400;
+  letter-spacing: .02em;
+  opacity: .8;
+}
+
+
+/* Équivalence : une seule ligne discrète, filet doré à gauche */
+.size-equivalence {
+  margin: var(--space-3) 0;
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-warm);
+  border-left: 3px solid var(--color-gold);
+  font-size: .9rem;
+  line-height: 1.5;
+}
+
+.size-equivalence.is-muted {
+  background: transparent;
+  border-left-color: var(--color-line-strong);
+  color: var(--color-muted);
+}
+
+
+/* Note du tailleur */
+.size-note {
+  margin-top: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-cream);
+  border: 1px solid var(--color-sand);
+  font-size: .875rem;
+  line-height: 1.6;
+}
+
+.size-note strong {
+  display: block;
+  margin-bottom: var(--space-1);
+  color: var(--color-terracotta);
+  font-size: .72rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+
+/* Ajout au panier
+   ========================================================================== */
 
 .add-to-cart-button {
-    width: 100%;
-    border: none;
-    background: #b65f45;
-    color: #fff;
-    padding: 16px 24px;
-    font-size: 15px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: 0.2s ease;
+  width: 100%;
+  min-height: 3.25rem;
+  padding: var(--space-3) var(--space-5);
+  background: var(--color-terracotta);
+  border: 0;
+  border-radius: var(--radius);
+  color: #fff;
+  font-size: .85rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color var(--ease);
 }
 
 .add-to-cart-button:hover {
-    background: #944b36;
+  background: var(--color-terracotta-dark);
 }
 
 .customization-note {
-    margin-top: 15px;
-    color: #888;
-    font-size: 13px;
-    text-align: center;
+  margin: var(--space-3) 0 0;
+  color: var(--color-muted);
+  font-size: .8125rem;
+  line-height: 1.5;
+  text-align: center;
 }
 
-@media (max-width: 768px) {
-    .article-detail-wrapper {
-        padding: 25px 15px;
-    }
+@media (prefers-reduced-motion: reduce) {
+  .color-swatch,
+  .size-button,
+  .add-to-cart-button {
+    transition: none;
+  }
 
-    .article-detail-image {
-        height: 400px;
-    }
-
-    .article-detail-content {
-        padding: 30px 22px;
-    }
-
-    .article-detail-title {
-        font-size: 32px;
-    }
+  .color-option:hover .color-swatch {
+    transform: none;
+  }
 }
