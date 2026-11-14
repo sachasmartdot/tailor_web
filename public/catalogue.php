@@ -1,42 +1,80 @@
 <?php
-
 declare(strict_types=1);
 
 require_once __DIR__ . '/../includes/bootstrap.php';
+require_once __DIR__ . '/../includes/cards.php';
 
 use App\Data\CatalogueRepository;
 
-$models = CatalogueRepository::getAll();
+$query = trim((string) ($_GET['q'] ?? ''));
 
-$pageTitle = 'Catalogue - Tailor Platform';
+$models = [];
+$tailorNames = [];
+$loadFailed = false;
+
+try {
+    $models = CatalogueRepository::getLatest();
+    foreach (CatalogueRepository::getTailors() as $t) {
+        $tailorNames[$t['id']] = $t['pseudo'];
+    }
+} catch (\Throwable $e) {
+    $loadFailed = true;
+}
+
+$totalCount = count($models);
+
+// Simple search on the title and description, ignoring upper and lower case
+if ($query !== '') {
+    $models = array_values(array_filter($models, static function (array $m) use ($query): bool {
+        $text = (string) ($m['title'] ?? '') . ' ' . (string) ($m['description'] ?? '');
+        return mb_stripos($text, $query) !== false;
+    }));
+}
+
+$pageTitle = 'Garments - Tailor Platform';
 require __DIR__ . '/../includes/header.php';
 ?>
 
-<a href="index.php" class="back-link mb-3 d-inline-block">&larr; Retour a l'accueil</a>
+<div class="page">
+    <a href="index.php" class="back-link">&larr; Back to home</a>
 
-<section>
-	<h1 class="page-title mb-4">Catalogue</h1>
+    <div class="section-head">
+        <div>
+            <p class="eyebrow">The catalogue</p>
+            <h1 class="page-title">Garments</h1>
+        </div>
+        <p class="section-head__count">
+            <?= count($models) ?> <?= count($models) === 1 ? 'garment' : 'garments' ?>
+        </p>
+    </div>
 
-	<?php if ($models === []): ?>
-	  <p class="text-muted">Aucun modele disponible pour le moment.</p>
-	<?php else: ?>
-		<div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4">
-			<?php foreach ($models as $m): ?>
-				<?php $img = ($m['image'] ?? '') !== '' ? $m['image'] : 'assets/icones/default-avatar.jpeg'; ?>
-				<div class='col'>
-					<div class='card h-100 model-card'>
-						<img src='<?= e($img) ?>' class='card-img-top' alt='' style='height:220px; object-fit: cover;'>
-						<div class='card-body d-flex flex-column'>
-							<h2 class='card-title h5'><?= e($m['title'] ?? '') ?></h2>
-							<p class='card-text text-muted flex-grow-1'><?= e($m['description'] ?? '') ?></p>
-							<p class='price'><?= formatPrice((float) ($m['prix'] ?? 0)) ?></p>
-							<a href='article_detail.php?id=<?= e($m['id']) ?>' class='btn btn-primary mt-auto'>Voir</a>
-						</div>
-					</div>
-				</div>
-			<?php endforeach; ?>
-		</div>
-	<?php endif; ?>
-</section>
+    <form class="catalogue-search" action="catalogue.php" method="get" role="search">
+        <label for="catalogueSearch" class="visually-hidden">Search garments</label>
+        <input id="catalogueSearch" name="q" type="search" class="form-control"
+               value="<?= e($query) ?>" placeholder="Search garments" autocomplete="off">
+        <button type="submit" class="btn btn-primary">Search</button>
+        <?php if ($query !== ''): ?>
+            <a href="catalogue.php" class="btn btn-outline-secondary">Clear</a>
+        <?php endif; ?>
+    </form>
+
+    <?php if ($loadFailed): ?>
+        <div class="alert alert-warning" role="alert">We could not load the garments just now. Please try again in a moment.</div>
+    <?php elseif ($models === []): ?>
+        <div class="empty-state">
+            <?php if ($query !== '' && $totalCount > 0): ?>
+                <p>Nothing matches &ldquo;<?= e($query) ?>&rdquo;. Try another word, or clear the search.</p>
+            <?php else: ?>
+                <p>No garments yet. The first pieces will appear here as soon as tailors publish them.</p>
+            <?php endif; ?>
+        </div>
+    <?php else: ?>
+        <div class="garment-grid">
+            <?php foreach ($models as $m): ?>
+                <?php renderGarmentCard($m, (string) ($tailorNames[$m['uid'] ?? ''] ?? '')); ?>
+            <?php endforeach; ?>
+        </div>
+    <?php endif; ?>
+</div>
 
 <?php require __DIR__ . '/../includes/footer.php'; ?>

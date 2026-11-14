@@ -15,24 +15,38 @@ class CartService
     }
 
     /**
-     * Ajoute un modèle au panier avec les choix
-     * de personnalisation du client.
+     * Adds a garment to the cart with the customer's choices.
+     *
+     * $sizeInfo comes from SizeGuide::selection(). It carries the sizing system the
+     * customer picked and the equivalent we showed them. Everything in the cart item
+     * is copied into the order at checkout, so the tailor sees the same details.
      */
     public static function add(
         array $model,
         string $couleur = '',
-        string $taille = ''
+        string $taille = '',
+        array $sizeInfo = []
     ): void {
         $_SESSION[self::SESSION_KEY][] = [
-            'model_id' => $model['id'],
-            'title' => $model['title'] ?? '',
-            'prix' => (float) ($model['prix'] ?? 0),
-            'image' => $model['image'] ?? '',
+            'model_id'   => $model['id'],
+            'title'      => $model['title'] ?? '',
+            'prix'       => (float) ($model['prix'] ?? 0),
+            'image'      => $model['image'] ?? '',
             'tailor_uid' => $model['uid'] ?? '',
 
-            // Personnalisation choisie par le client
+            // What the customer chose
             'couleur' => $couleur,
-            'taille' => $taille,
+            'taille'  => $taille,
+
+            // Sizing system details (empty for older items)
+            'size_reference'  => (string) ($sizeInfo['size_reference'] ?? ''),
+            'size_equivalent' => (string) ($sizeInfo['size_equivalent'] ?? ''),
+            'size_category'   => (string) ($sizeInfo['size_category'] ?? ''),
+            'garment_type'    => (string) ($sizeInfo['garment_type'] ?? ''),
+            'size_indicative' => (bool) ($sizeInfo['size_indicative'] ?? false),
+
+            // The tailor's own sizing note, as it was when the customer ordered
+            'size_note' => (string) ($model['size_note'] ?? ''),
         ];
     }
 
